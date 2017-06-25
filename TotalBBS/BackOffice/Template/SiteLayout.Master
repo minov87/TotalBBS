@@ -1,0 +1,80 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SiteLayout.master.cs" Inherits="TotalBBS.BackOffice.Template.SiteLayout" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+    <head id="head1" runat="server">
+        <title>Backoffice</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="cache-control" content="no-cache" />	
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <script type="text/javascript" src="/Common/js/libs/jquery-2.1.1.min.js"></script>
+	    <script type="text/javascript" src="/Common/js/bootstrap/bootstrap.min.js"></script>
+        <script language="javascript" type="text/javascript">
+        <!--
+            function logout()  {
+                if (confirm("로그아웃 하시겠습니까?")) {
+                    __doPostBack('ctl00$lbtnLogout', '');
+                }
+                else  {
+                    return false;
+                }
+            }
+        //-->
+        </script>
+
+        <asp:Literal ID="ltValidation" runat="server"></asp:Literal>
+    </head>
+    <body>
+        <form id="form1" runat="server" >
+            <div id="container">
+	            <div id="headerWrap">
+		            <div id="header">
+			            <div class="logo"><a href="/BackOffice/Main.aspx">Logo</a></div>
+			            <div class="memInfo"><strong><asp:Literal ID="ltAccNm" runat="server"></asp:Literal></strong> <a href="javascript:;" onclick="return logout();">Log-out</a>
+                        <asp:Literal ID="ltStatistics" runat="server"></asp:Literal>
+                        </div>
+		            </div>
+	            </div>
+
+	            <!-- 상단 메뉴 -->
+	            <div id="chromemenu">
+		            <%--<ul>
+                        <asp:Literal ID="ltSystemMenu" runat="server"></asp:Literal>
+                        <asp:Repeater ID="rptGnbList" runat="server" OnItemDataBound="rptGnbList_ItemDataBound">
+                        <ItemTemplate>
+                            <asp:Literal ID="ltGnbData" runat="server"></asp:Literal>
+                        </ItemTemplate>
+                        </asp:Repeater>
+		            </ul>--%>
+	            </div>
+	            <!--// 상단 메뉴 -->
+
+	            <div id="contWrap">
+		            <!-- left 메뉴 -->
+		            <div id="leftSec" runat="server" clientidmode="Static">
+			            <div id="centralPanel"  style="font-size:18px;color:#fff;background-color:rgb(56, 78, 109);font-weight:bold;padding:5px 0 0 18px; border-bottom:1px solid #e6edf7; background:#384e6d;">
+				            <asp:Literal ID="ltManagerTitle" runat="server"></asp:Literal>
+			            </div>
+			
+			            <div class="leftMenu1">
+                            <ul>
+                                <asp:Literal ID="ltLeftMenu" runat="server" EnableViewState="false"></asp:Literal>
+                            </ul>
+			            </div>
+		            </div>
+		            <!--// left 메뉴 -->
+		            <div id="contents">
+                            <asp:ContentPlaceHolder ID="cphTotalBBS" runat="server" />
+		            </div>
+	            </div>
+            </div>
+
+            <div id="footerWrap" style="clear:both; background:#2d2d2d; text-align:center; padding:10px 0 10px 0;">
+	            <div class="footSec"></div>
+            </div>
+            <!--// footer end -->
+            <asp:LinkButton ID="lbtnLogout" runat="server" onClick="lbtnLogout_Click"/>
+        </form>
+    </body>
+</html>
