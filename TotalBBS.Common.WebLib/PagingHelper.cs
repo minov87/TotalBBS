@@ -11,7 +11,7 @@ using System.IO;
 
 namespace TotalBBS.Common.WebLib
 {
-    [ToolboxData("<{0}:PagingHelper runat=server></{0}:PagingHelper>"), Designer(typeof(TotalBBS.Common.WebLib.PagingHelperDesigner))]
+   [ToolboxData("<{0}:PagingHelper runat=server></{0}:PagingHelper>"), Designer(typeof(TotalBBS.Common.WebLib.PagingHelperDesigner))]
     public class PagingHelper : WebControl, INamingContainer
     {
         public delegate void PagingEventHandler(object sender, PagingEventArgs e);
@@ -274,25 +274,24 @@ namespace TotalBBS.Common.WebLib
             lb.CausesValidation = false;
             lb.Command += new CommandEventHandler(this.btnPage_Command);
 
+            Controls.Add(new LiteralControl("<ul class=\"paging pagination\">"));
+
             // 이전 10개 기능 적용
             if(pageCount > 10) 
             {
                 if (currentBlodkEndNo > 10)
                 {
                     lb.CommandArgument = (page - 10 - endNum + 1).ToString();
-                    lb.Text = prevBlockImg_on == null ? prev10 : "<img src=\"" + prevBlockImg_on + "\" border=\"0\">";
+                    lb.Text = prevBlockImg_on == null ? "<li class=\"paginate_button\">"+ prev10 + "</li>" : "<img src=\"" + prevBlockImg_on + "\" border=\"0\">";
 
                     Controls.Add(lb);
                 }
                 else
                 {
-                    tempStr = "<font color=silver>" + prev10 + "</font>";
+                    tempStr = "<li class=\"paginate_button\">" + prev10 + "</li>";
                     tempImgStr = "<img src=\"" + prevBlockImg_off + "\" border=\"0\">";
                     Controls.Add(new LiteralControl(prevBlockImg_off == null ? tempStr : tempImgStr));
                 }
-
-                //구분 공백 삽입
-                Controls.Add(new LiteralControl(" "));
             }
 
             lb = new LinkButton();
@@ -302,35 +301,35 @@ namespace TotalBBS.Common.WebLib
             // 이전 페이지로 가기 기능 적용
             if (page <= 1)
             {
-                tempStr = "<font color=silver>" + prev + "</font>";
+                tempStr = "<li class=\"paginate_button\">" + prev + "</li>";
                 tempImgStr = "<img src=\"" + prevImg_off + "\" border=\"0\">";
                 Controls.Add(new LiteralControl(prevImg_off == null ? tempStr : tempImgStr));
             }
             else
             {
                 lb.CommandArgument = (page - 1).ToString();
-                lb.Text = prevImg_on == null ? prev : "<img src=\"" + prevImg_on + "\" border=\"0\">";
+                lb.Text = prevImg_on == null ? "<li class=\"paginate_button\">" + prev + "</li>" : "<img src=\"" + prevImg_on + "\" border=\"0\">";
 
                 Controls.Add(lb);
             }
-            // 구분 공백 삽입
-            Controls.Add(new LiteralControl(" "));
 
             // 1,2,3,4,5,6,7,8,9,10
             for (int i = StartPage; i <= EndPage; i++)
             {
                 if (i == page)
                 {
-                    Controls.Add(new LiteralControl("<strong>" + i + "</strong>"));
+                    Controls.Add(new LiteralControl("<li class=\"paginate_button active\"><a href = \"#\" aria-controls=\"dt_basic\" data-dt-idx=\"" + i + "\" tabindex=\"0\">" + i + "</a></li>"));
                 }
                 else
                 {
+                    Controls.Add(new LiteralControl("<li class=\"paginate_button \">"));
                     lb = new LinkButton();
                     lb.CausesValidation = false;
                     lb.Command += new CommandEventHandler(this.btnPage_Command);
                     lb.CommandArgument = i.ToString();
-                    lb.Text = " " + i.ToString() + " ";
+                    lb.Text = "<li class=\"paginate_button\">"+ i.ToString() +"</li>";
                     Controls.Add(lb);
+                    Controls.Add(new LiteralControl("</li>"));
                 }
             }
 
@@ -338,31 +337,23 @@ namespace TotalBBS.Common.WebLib
             lb.CausesValidation = false;
             lb.Command += new CommandEventHandler(this.btnPage_Command);
 
-            // 구분 공백 삽입
-            Controls.Add(new LiteralControl(" "));
-
             // 다음 페이지로 가기 기능 적용
             if (page == pageCount)
             {
-                tempStr = "<font color=silver>" + next + "</font>";
+                tempStr = "<li class=\"paginate_button\">" + next + "</li>";
                 tempImgStr = "<img src=\"" + nextImg_off + "\" border=\"0\">";
                 Controls.Add(new LiteralControl(nextImg_off == null ? tempStr : tempImgStr));
             }
             else
             {
                 lb.CommandArgument = (page + 1).ToString();
-                lb.Text = nextImg_on == null ? next : "<img src=\"" + nextImg_on + "\" border=\"0\">";
+                lb.Text = nextImg_on == null ? "<li class=\"paginate_button\">" + next + "</li>" : "<img src=\"" + nextImg_on + "\" border=\"0\">";
 
                 Controls.Add(lb);
             }
-            // 구분 공백 삽입
-            Controls.Add(new LiteralControl(" "));
 
             if(pageCount > 10)  
             {
-                //구분 공백 삽입
-                Controls.Add(new LiteralControl(" "));
-
                 lb = new LinkButton();
                 lb.CausesValidation = false;
                 lb.Command += new CommandEventHandler(this.btnPage_Command);
@@ -371,17 +362,19 @@ namespace TotalBBS.Common.WebLib
                 if (pageCount > currentBlodkEndNo)
                 {
                     lb.CommandArgument = (currentBlodkEndNo + 1).ToString();
-                    lb.Text = nextBlockImg_on == null ? next10 : "<img src=\"" + nextBlockImg_on + "\" border=\"0\">";
+                    lb.Text = nextBlockImg_on == null ? "<li class=\"paginate_button\">" + prev10 + "</li>" : "<img src=\"" + nextBlockImg_on + "\" border=\"0\">";
 
                     Controls.Add(lb);
                 }
                 else
                 {
-                    tempStr = "<font color=silver>" + next10 + "</font>";
+                    tempStr = "<li class=\"paginate_button\">" + next10 + "</li>";
                     tempImgStr = "<img src=\"" + nextBlockImg_off + "\" border=\"0\">";
                     Controls.Add(new LiteralControl(nextBlockImg_off == null ? tempStr : tempImgStr));
                 }
             }
+
+            Controls.Add(new LiteralControl("</ul>"));
         }
 
         protected void btnPage_Command(object sender, CommandEventArgs e)

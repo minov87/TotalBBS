@@ -357,6 +357,7 @@
     <Content Include="App_Themes\Img\vt-menu.png" />
     <Content Include="BackOffice\AdminLogin.aspx" />
     <Content Include="BackOffice\Board\BoardList.aspx" />
+    <Content Include="BackOffice\Board\BoardReplyList.aspx" />
     <Content Include="BackOffice\Board\BoardWrite.aspx" />
     <Content Include="BackOffice\Board\Test.aspx" />
     <Content Include="BackOffice\Main.aspx" />
@@ -877,6 +878,7 @@
     <Content Include="Common\js\plugin\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
     <Content Include="Common\js\plugin\ckeditor\skins\moono\readme.md" />
     <Fakes Include="Fakes\TotalBBS.Common.fakes" />
+    <Content Include="BackOffice\Template\NoneLayout.Master" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -931,6 +933,13 @@
     <Compile Include="BackOffice\Board\BoardList.aspx.designer.cs">
       <DependentUpon>BoardList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BackOffice\Board\BoardReplyList.aspx.cs">
+      <DependentUpon>BoardReplyList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BackOffice\Board\BoardReplyList.aspx.designer.cs">
+      <DependentUpon>BoardReplyList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BackOffice\Board\BoardWrite.aspx.cs">
       <DependentUpon>BoardWrite.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -951,6 +960,13 @@
     </Compile>
     <Compile Include="BackOffice\Main.aspx.designer.cs">
       <DependentUpon>Main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BackOffice\Template\NoneLayout.Master.cs">
+      <DependentUpon>NoneLayout.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BackOffice\Template\NoneLayout.Master.designer.cs">
+      <DependentUpon>NoneLayout.Master</DependentUpon>
     </Compile>
     <Compile Include="BackOffice\Template\SiteLayout.Master.cs">
       <DependentUpon>SiteLayout.Master</DependentUpon>

@@ -22,6 +22,7 @@ namespace TotalBBS.BackOffice.Board
         private string ParamBoardCategory = string.Empty;
         private string ParamField = string.Empty;
         private string ParamKey = string.Empty;
+        private String ParamSort = "IDX";
 
         //첨부파일 카운트
         private int AttachedFileCnt = 0;
@@ -43,7 +44,7 @@ namespace TotalBBS.BackOffice.Board
                 object obj_BoardCreate = Cache["BoardCreate"];
                 object obj_BoardModify = Cache["BoardModify"];
 
-                string[] ParameterData = new string[5];
+                string[] ParameterData = new string[6];
                 if (obj_BoardCreate != null && obj_BoardModify != null)
                 {
                     Response.Redirect(DefaultPage, false);
@@ -62,6 +63,7 @@ namespace TotalBBS.BackOffice.Board
                             ParamKey = ParameterData[2];
                             iIdx = IntegerUtil.intValid(ParameterData[3], 0);
                             iPage = IntegerUtil.intPage(ParameterData[4], 1);
+                            ParamSort = ParameterData[5];
 
                             this.GetPageInfoSetting(ParamBoardCategory, ParamField, ParamKey, iIdx, iPage, "C");
                         }
@@ -80,6 +82,7 @@ namespace TotalBBS.BackOffice.Board
                                 ParamKey = ParameterData[2];
                                 iIdx = IntegerUtil.intValid(ParameterData[3], 0);
                                 iPage = IntegerUtil.intPage(ParameterData[4], 1);
+                                ParamSort = ParameterData[5];
 
                                 this.GetPageInfoSetting(ParamBoardCategory, ParamField, ParamKey, iIdx, iPage, "M");
                             }

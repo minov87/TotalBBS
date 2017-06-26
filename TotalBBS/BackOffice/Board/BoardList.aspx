@@ -18,6 +18,11 @@
         $("#cphTotalBBS_ParamIdx").val(frm1);
         __doPostBack('ctl00$cphTotalBBS$lbtnModify', '');
     }
+
+    function FrmSort(frm1) {
+        $("#cphTotalBBS_ParamSort").val(frm1);
+        __doPostBack('ctl00$cphTotalBBS$lbtnSort', '');
+    }
 //-->
 </script>
 <div class="contentArea">
@@ -74,13 +79,13 @@
                         <thaed>
                             <tr>
                                 <th style="text-align:center;"><asp:Literal ID="ltThChkBoxAll" runat="server"></asp:Literal></th>
-                                <th style="text-align:center;" class="sorting"><asp:Literal ID="ltThIdx" runat="server"></asp:Literal></th>
-                                <th style="text-align:center;" class="sorting"><asp:Literal ID="ltThBoardCate" runat="server"></asp:Literal></th>
-                                <th style="text-align:center;" class="sorting"><asp:Literal ID="ltThWriteCate" runat="server"></asp:Literal></th>
-                                <th style="text-align:center;" class="sorting"><asp:Literal ID="ltThSubject" runat="server"></asp:Literal></th>
-                                <th style="text-align:center;"><asp:Literal ID="ltThViewCount" runat="server"></asp:Literal></th>
-                                <th style="text-align:center;"><asp:Literal ID="ltThWriter" runat="server"></asp:Literal></th>
-                                <th style="text-align:center;" class="sorting"><asp:Literal ID="ltThRegdate" runat="server"></asp:Literal></th>
+                                <th style="text-align:center;" class="sorting"><asp:LinkButton ID="lbtThIdx" runat="server"></asp:LinkButton></th>
+                                <th style="text-align:center;" class="sorting"><asp:LinkButton ID="lbtThBoardCate" runat="server"></asp:LinkButton></th>
+                                <th style="text-align:center;" class="sorting"><asp:LinkButton ID="lbtThWriteCate" runat="server"></asp:LinkButton></th>
+                                <th style="text-align:center;" class="sorting"><asp:LinkButton ID="lbtThSubject" runat="server"></asp:LinkButton></th>
+                                <th style="text-align:center;"><asp:LinkButton ID="lbtThViewCount" runat="server"></asp:LinkButton></th>
+                                <th style="text-align:center;"><asp:LinkButton ID="lbtThWriter" runat="server"></asp:LinkButton></th>
+                                <th style="text-align:center;" class="sorting"><asp:LinkButton ID="lbtThRegdate" runat="server"></asp:LinkButton></th>
                             </tr>
                         </thaed>
                         <tbody>
@@ -114,9 +119,7 @@
                 <!-- 페이징-->         
                 <div class="col-xs-12 col-sm-6">
                     <div class="dataTables_paginate paging_simple_numbers" id="datatable_tabletools_paginate">
-                        <ul class="paging pagination">
-			                <TB:PagingHelper ID="PagingHelper1" SkinID="PagingHelper" runat="server" Width="100%" OnOnPageIndexChanged="PagingHelper1_OnPageIndexChanged" />
-		                </ul>  
+			            <TB:PagingHelper ID="PagingHelper1" SkinID="PagingHelper" runat="server" Width="100%" OnOnPageIndexChanged="PagingHelper1_OnPageIndexChanged" />
                     </div>
                 </div>
                 <!--// 페이징 -->
@@ -128,6 +131,8 @@
             <asp:HiddenField ID="ParamIdx" runat="server" />
             <asp:HiddenField ID="ParamPage" runat="server" Value="" />
             <asp:HiddenField ID="ParamPageViewRow" runat="server" Value="" />
+            <asp:HiddenField ID="ParamSort" runat="server" Value="" />
+            <asp:LinkButton ID="lbtnSort" runat="server" OnClick="lbtnSort_Click"></asp:LinkButton>
             <asp:LinkButton ID="lbtnModify" runat="server" OnClick="lbtnModify_Click"></asp:LinkButton>
             <asp:HiddenField ID="hdfBoardCategory" runat="server" Value="" />
             <asp:LinkButton ID="lbtnBoardCategorySearch" runat="server" OnClick="lbtnBoardCategorySearch_Click"></asp:LinkButton>

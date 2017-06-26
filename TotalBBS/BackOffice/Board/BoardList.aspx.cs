@@ -23,6 +23,7 @@ namespace TotalBBS.BackOffice.Board
         private string strKey = string.Empty;
         private string strTxTStartDate = string.Empty;
         private string strTxTEndDate = string.Empty;
+        private string strSort = "IDX";
 
         //페이징
         private int iPage = 1;
@@ -52,12 +53,12 @@ namespace TotalBBS.BackOffice.Board
                         {
                             //페이지값을 유지하기위해서
                             iPage = IntegerUtil.intValid(Request.QueryString["Page"].ToString(), 1);
-                            this.GetListInfo(PageSize, iPage, strBoardCategory, strField, strKey);
+                            this.GetListInfo(PageSize, iPage, strBoardCategory, strSort, strField, strKey);
                             Page_Move(iPage, PagingHelper1);
                         }
                         else
                         {
-                            this.GetListInfo(PageSize, 1, strBoardCategory, strField, strKey);
+                            this.GetListInfo(PageSize, 1, strBoardCategory, strSort, strField, strKey);
                             Page_Move(1, PagingHelper1);
                         }
                     }
@@ -122,6 +123,7 @@ namespace TotalBBS.BackOffice.Board
             iPage = IntegerUtil.intPage(WebUtil.SCRequestFormString("ParamPage", string.Empty), 1);
             intPageViewRow = IntegerUtil.intPage(WebUtil.SCRequestFormString("ParamPageViewRow", string.Empty), PageSize);
             strBoardCategory = WebUtil.SCRequestFormString("ddlBoardCategory", "-1");
+            strSort = WebUtil.SCRequestFormString("ParamSort", "IDX");
         }
 
         protected void Page_Move(int Page, PagingHelper PagingHelper)
@@ -135,7 +137,7 @@ namespace TotalBBS.BackOffice.Board
         {
             try
             {
-                this.GetListInfo(PageSize, e.PageIndex, strBoardCategory, strField, strKey);
+                this.GetListInfo(PageSize, e.PageIndex, strBoardCategory, strSort, strField, strKey);
             }
             catch (Exception ex)
             {
@@ -145,7 +147,7 @@ namespace TotalBBS.BackOffice.Board
             }
         }
 
-        private void GetListInfo(int PagePerData, int CurrentPage, string BoardCategory, string FIELD, string KEY)
+        private void GetListInfo(int PagePerData, int CurrentPage, string BoardCategory, string ORDERBY, string FIELD, string KEY)
         {
             Board_NTx_Dac oWS = new Board_NTx_Dac();
 
@@ -155,9 +157,9 @@ namespace TotalBBS.BackOffice.Board
                 PagePerData = IntegerUtil.intValid(this.ParamPageViewRow.Value, 10);
             }
 
-            List<BoardBean> GetList = oWS.TOTALBBS_BOARD_INFO_SEL(PagePerData, CurrentPage, BoardCategory, "L", "IDX", FIELD, strKey);
+            List<BoardBean> GetList = oWS.TOTALBBS_BOARD_INFO_SEL(PagePerData, CurrentPage, BoardCategory, "L", ORDERBY, FIELD, strKey);
 
-            int BoardTotalCnt = oWS.TOTALBBS_BOARD_INFO_COUNT_SEL(PagePerData, CurrentPage, BoardCategory, "T", "IDX", FIELD, strKey);
+            int BoardTotalCnt = oWS.TOTALBBS_BOARD_INFO_COUNT_SEL(PagePerData, CurrentPage, BoardCategory, "T", ORDERBY, FIELD, strKey);
             NoDataTotalCnt = BoardTotalCnt;
             TotalCnt = BoardTotalCnt - ((CurrentPage - 1) * PagePerData);
             this.ltTotalCnt.Text = String.Format(CultureInfo.InvariantCulture, "{0:0,0}", BoardTotalCnt) + "개";
@@ -183,22 +185,29 @@ namespace TotalBBS.BackOffice.Board
             if (e.Item.ItemType == ListItemType.Header)
             {
                 Literal ltThChkBoxAll = (Literal)e.Item.FindControl("ltThChkBoxAll");
-                Literal ltThIdx = (Literal)e.Item.FindControl("ltThIdx");
-                Literal ltThBoardCate = (Literal)e.Item.FindControl("ltThBoardCate");
-                Literal ltThWriteCate = (Literal)e.Item.FindControl("ltThWriteCate");
-                Literal ltThSubject = (Literal)e.Item.FindControl("ltThSubject");
-                Literal ltThViewCount = (Literal)e.Item.FindControl("ltThViewCount");
-                Literal ltThWriter = (Literal)e.Item.FindControl("ltThWriter");
-                Literal ltThRegdate = (Literal)e.Item.FindControl("ltThRegdate");
+                LinkButton lbtThIdx = (LinkButton)e.Item.FindControl("lbtThIdx");
+                LinkButton lbtThBoardCate = (LinkButton)e.Item.FindControl("lbtThBoardCate");
+                LinkButton lbtThWriteCate = (LinkButton)e.Item.FindControl("lbtThWriteCate");
+                LinkButton lbtThSubject = (LinkButton)e.Item.FindControl("lbtThSubject");
+                LinkButton lbtThViewCount = (LinkButton)e.Item.FindControl("lbtThViewCount");
+                LinkButton lbtThWriter = (LinkButton)e.Item.FindControl("lbtThWriter");
+                LinkButton lbtThRegdate = (LinkButton)e.Item.FindControl("lbtThRegdate");
               
                 ltThChkBoxAll.Text = "<input type=\"checkbox\" onclick=\"SelectAllCheckBoxes(this);\" id=\"SelectAllCheckBox\" />";
-                ltThIdx.Text = "일련번호";
-                ltThBoardCate.Text = "게시판 카테고리";
-                ltThWriteCate.Text = "게시글 카테고리";
-                ltThSubject.Text = "제목";
-                ltThViewCount.Text = "조회수";
-                ltThWriter.Text = "작성자";
-                ltThRegdate.Text = "등록일";
+                lbtThIdx.Text = "일련번호";
+                lbtThIdx.OnClientClick = "if(!FrmSort('IDX')) return false;";
+                lbtThBoardCate.Text = "게시판 카테고리";
+                lbtThBoardCate.OnClientClick = "if(!FrmSort('BCD')) return false;";
+                lbtThWriteCate.Text = "게시글 카테고리";
+                lbtThWriteCate.OnClientClick = "if(!FrmSort('WCD')) return false;";
+                lbtThSubject.Text = "제목";
+                lbtThSubject.OnClientClick = "if(!FrmSort('SUB')) return false;";
+                lbtThViewCount.Text = "조회수";
+                lbtThViewCount.OnClientClick = "if(!FrmSort('VCT')) return false;";
+                lbtThWriter.Text = "작성자";
+                lbtThWriter.OnClientClick = "if(!FrmSort('WRT')) return false;";
+                lbtThRegdate.Text = "등록일";
+                lbtThRegdate.OnClientClick = "if(!FrmSort('REG')) return false;";
             }
             // 데이타 처리
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -288,7 +297,7 @@ namespace TotalBBS.BackOffice.Board
                 PagingHelper1.PageSize = PageSize;
                 Page_Move(iPage, PagingHelper1);
 
-                this.GetListInfo(PageSize, iPage, strBoardCategory, strField, strKey);
+                this.GetListInfo(PageSize, iPage, strBoardCategory, strSort, strField, strKey);
             }
             catch (Exception ex)
             {
@@ -317,13 +326,14 @@ namespace TotalBBS.BackOffice.Board
                     Cache.Remove("BoardModify");
                 }
 
-                string[] ParameterData = new string[5];
+                string[] ParameterData = new string[6];
 
                 ParameterData[0] = strBoardCategory;
                 ParameterData[1] = strField;
                 ParameterData[2] = strKey;
                 ParameterData[3] = WebUtil.SCRequestFormString("ParamIdx", string.Empty);
                 ParameterData[4] = WebUtil.SCRequestFormString("ParamPage", string.Empty);
+                ParameterData[5] = WebUtil.SCRequestFormString("ParamSort", string.Empty);
 
                 Cache.Insert("BoardCreate", ParameterData, null, DateTime.Now.AddHours(24), TimeSpan.Zero);
 
@@ -356,13 +366,14 @@ namespace TotalBBS.BackOffice.Board
                     Cache.Remove("BoardModify");
                 }
 
-                string[] ParameterData = new string[5];
+                string[] ParameterData = new string[6];
 
                 ParameterData[0] = strBoardCategory;
                 ParameterData[1] = strField;
                 ParameterData[2] = strKey;
                 ParameterData[3] = WebUtil.SCRequestFormString("ParamIdx", string.Empty);
                 ParameterData[4] = WebUtil.SCRequestFormString("ParamPage", string.Empty);
+                ParameterData[5] = WebUtil.SCRequestFormString("ParamSort", string.Empty);
 
                 Cache.Insert("BoardModify", ParameterData, null, DateTime.Now.AddHours(24), TimeSpan.Zero);
 
@@ -388,9 +399,10 @@ namespace TotalBBS.BackOffice.Board
                     strBoardCategory = WebUtil.SCRequestFormString("ddlBoardCategory", "-1");
                     strField = WebUtil.SCRequestFormString("FIELD", "A");
                     strKey = WebUtil.SCRequestFormString("KEY", string.Empty);
+                    strSort = WebUtil.SCRequestFormString("strSort", "IDX");
                 }
 
-                this.GetListInfo(PageSize, 1, strBoardCategory, strField, strKey);
+                this.GetListInfo(PageSize, 1, strBoardCategory, strSort, strField, strKey);
             }
             catch (Exception ex)
             {
@@ -412,9 +424,10 @@ namespace TotalBBS.BackOffice.Board
                     strBoardCategory = WebUtil.SCRequestFormString("ddlBoardCategory", "-1");
                     strField = WebUtil.SCRequestFormString("FIELD", "A");
                     strKey = WebUtil.SCRequestFormString("KEY", string.Empty);
+                    strSort = WebUtil.SCRequestFormString("strSort", "IDX");
                 }
 
-                this.GetListInfo(PageSize, 1, strBoardCategory, strField, strKey);
+                this.GetListInfo(PageSize, 1, strBoardCategory, strSort, strField, strKey);
             }
             catch (Exception ex)
             {
@@ -454,6 +467,31 @@ namespace TotalBBS.BackOffice.Board
         }
         #endregion
 
+        #region [lbtnSort_Click] 정렬 버튼
+        protected void lbtnSort_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LinkButton btnSearch = (LinkButton)sender;
+                if (btnSearch.ID.Equals("lbtnSort"))
+                {
+                    strBoardCategory = WebUtil.SCRequestFormString("ddlBoardCategory", "-1");
+                    strField = WebUtil.SCRequestFormString("FIELD", "A");
+                    strKey = WebUtil.SCRequestFormString("KEY", string.Empty);
+                    strSort = WebUtil.SCRequestFormString("ParamSort", "IDX");
+                }
+
+                this.GetListInfo(PageSize, 1, strBoardCategory, strSort, strField, strKey);
+            }
+            catch (Exception ex)
+            {
+                #region [Error Logger] 로그인을 한경우
+                //ErrorLogger_Tx_Dac.GetErrorLogger_Tx_Dac().TB_TOTABBS_ERROR_LOGGER_INFO_INS_SP(ex, admin.MemberId, admin.MemberNm);
+                #endregion
+            }
+        }
+        #endregion
+
         #region 검색 입력 체크
         protected void CustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
         {
@@ -461,7 +499,7 @@ namespace TotalBBS.BackOffice.Board
             {
                 if (args.Value.Length > 0)
                 {
-                    this.GetListInfo(PageSize, 1, strBoardCategory, strField, strKey);
+                    this.GetListInfo(PageSize, 1, strBoardCategory, strSort, strField, strKey);
                     args.IsValid = true;
                 }
                 else
@@ -486,7 +524,7 @@ namespace TotalBBS.BackOffice.Board
                 int ddlPageViewRowSeletedValue = IntegerUtil.intValid(this.ddlPageViewRow.SelectedValue, 10);
                 PagingHelper1.PageSize = ddlPageViewRowSeletedValue;
                 this.ParamPageViewRow.Value = ddlPageViewRowSeletedValue.ToString();
-                this.GetListInfo(ddlPageViewRowSeletedValue, iPage, strBoardCategory, strField, strKey);
+                this.GetListInfo(ddlPageViewRowSeletedValue, iPage, strBoardCategory, strSort, strField, strKey);
             }
             catch (Exception ex)
             {
