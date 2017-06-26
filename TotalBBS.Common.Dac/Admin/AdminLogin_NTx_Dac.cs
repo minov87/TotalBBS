@@ -10,7 +10,7 @@ using TotalBBS.Common.Data;
 
 namespace TotalBBS.Common.Dac.Admin
 {
-    public class Login_NTx
+    public class Login_NTx_Dac
     {
         #region [관리자 조회]
         public LoginBean TOTALBBS_ADMIN_SEL(string AdminId, string AdminPw)

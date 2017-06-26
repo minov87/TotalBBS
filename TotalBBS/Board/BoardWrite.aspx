@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/BackOffice/Template/SiteLayout.Master" CodeBehind="BoardWrite.aspx.cs" Inherits="TotalBBS.BackOffice.Board.BoardWrite"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="BoardWrite.aspx.cs" Inherits="TotalBBS.Board.BoardWrite" %>
 <%@ Register Assembly="TotalBBS.Common.WebLib" Namespace="TotalBBS.Common.WebLib" TagPrefix="TB" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphTotalBBS" runat="server">
     <script type="text/javascript">
@@ -39,13 +39,6 @@
             tbl.deleteRow(tbl_length - 1);
         }
 
-        function delRow() {
-            var currentElement = window.event.srcElement;
-            var currentTable = currentElement.parentNode.parentNode.parentNode;
-            var currentRowIndex = currentElement.parentNode.parentNode.rowIndex;
-            currentTable.deleteRow(currentRowIndex);
-        }
-
         function FileExtension(file) {
             if (file && file.value.length > 0) {
                 if (event.srcElement.value.toLowerCase().match(/(.asp|.aspx|.bat|.jsp|.php|.sh)/)) {
@@ -57,42 +50,6 @@
         }
 
         function InputValidation() {
-
-            var iFileUploadList = $("input[name='BoardFileUpload']");
-            var TotalCnt = 0;
-            var FileListCnt = 0;
-            for (i = 0; i < iFileUploadList.length; i++) {
-                if ($.trim($("input[name='BoardFileUpload']")[i].value) != "") {
-                    FileListCnt = FileListCnt + 1;
-                }
-                TotalCnt = TotalCnt + 1;
-            }
-
-            if ($.trim($("#ctl00$cphTotalBBS$txtUserId").val()) == "") {
-                alert("작성자 아이디를 입력하세요.");
-                $("#ctl00$cphTotalBBS$txtUserId").focus();
-                return false;
-            }
-
-            if ($.trim($("#ctl00$cphTotalBBS$txtWriter").val()) == "") {
-                alert("작성자 이름을 입력하세요.");
-                $("#ctl00$cphTotalBBS$txtWriter").focus();
-                return false;
-            }
-
-            if ($.trim($("#ctl00$cphTotalBBS$txtSubject").val()) == "") {
-                alert("제목을 입력하세요.");
-                $("#ctl00$cphTotalBBS$txtSubject").focus();
-                return false;
-            }
-
-            /*
-            if ($.trim($("#txtContent").text()) == "") {
-                alert("내용을 입력하세요.");
-                $("#txtContent").focus();
-                return false;
-            }*/
-
             if (TotalCnt > 1) {
                 if (TotalCnt != FileListCnt) {
                     alert('파일 업로더 컨트롤을 삭제 후 등록해 주세요');
@@ -104,13 +61,13 @@
         }
     </script>
     <div class="contentArea">
-        <div class="contentAreaTop dataTables_wrapper form-inline dt-bootstrap no-footer">
+        <div class="contentAreaTop">
             <!-- contents -->
             <div class="titleArea">
-                <h1 class="page-title txt-color-blueDark"><asp:Literal ID="ltTitle" runat="server"></asp:Literal></h1>
+                <h3 class="tit"><asp:Literal ID="ltTitle" runat="server"></asp:Literal></h3>
             </div>
 
-            <table class="dataWrite table table-striped table-bordered table-hover dataTable no-footer">
+            <table class="dataWrite">
                 <colgroup>
                     <col width="200px" />
                     <col width="280px" />
@@ -121,49 +78,49 @@
                     <tr class="noedit">
                         <th><asp:Literal ID="ltBoardCategory" runat="server"></asp:Literal></th>
                         <td colspan="3">
-                            <asp:DropDownList CssClass="form-control input-sm" ID="ddlBoardCategory" OnSelectedIndexChanged="ddlBoardCaregory_itemSelected" runat="server" AutoPostBack="true" style="width:20%"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlBoardCategory" OnSelectedIndexChanged="ddlBoardCaregory_itemSelected" runat="server" Height="20px" Width="250px" AutoPostBack="true" ></asp:DropDownList>
                         </td>
                     </tr>
 
                     <tr class="noedit">
                         <th><asp:Literal ID="ltWriteCategory" runat="server"></asp:Literal></th>
                         <td colspan="3" >
-                            <asp:DropDownList ID="ddlWriteCategory" runat="server" CssClass="form-control input-sm" style="width:20%"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlWriteCategory" runat="server" Height="20px" Width="250px" ></asp:DropDownList>
                         </td>
                     </tr>
 
                     <tr class="noedit">
                         <th style="background:#F2F2F2;"><asp:Literal ID="ltUserId" runat="server"></asp:Literal></th>
                         <td colspan="3">
-                            <asp:TextBox runat="server" CssClass="text form-control" ID="txtUserId" MaxLength="50" />
+                            <asp:TextBox runat="server" CssClass="text" ID="txtUserId" MaxLength="50" style="Width:97%" />
                         </td>
                     </tr>
 						
                     <tr class="noedit">
                         <th style="background:#F2F2F2;"><asp:Literal ID="ltWriter" runat="server"></asp:Literal></th>
                         <td colspan="3">
-                            <asp:TextBox runat="server" CssClass="text form-control" ID="txtWriter" MaxLength="50" />
+                            <asp:TextBox runat="server" CssClass="text" ID="txtWriter" MaxLength="50" style="Width:97%" />
                         </td>
                     </tr>
 
                     <tr class="noedit">
                         <th><asp:Literal ID="ltSubject" runat="server"></asp:Literal></th>
                         <td colspan="3">
-                            <asp:TextBox runat="server" CssClass="text form-control" ID="txtSubject" MaxLength="100" style="Width:97%" />
+                            <asp:TextBox runat="server" CssClass="text" ID="txtSubject" MaxLength="100" style="Width:97%" />
                         </td>
                     </tr>
 
                     <tr class="noedit">
                         <th class="tit"><asp:Literal ID="ltContent" runat="server"></asp:Literal></th>
                         <td class="edit" colspan="3">
-                            <asp:TextBox runat="server" CssClass="ContentsArea" TextMode="MultiLine" ID="txtContent" MaxLength="100"/>
+                            <asp:TextBox ID="txtContent" runat="server" TextMode="MultiLine" Width="97%" Height="300px" ></asp:TextBox>
                         </td>
                     </tr>
 
                     <tr class="noedit" style="border:none;">
                         <th>첨부파일</th>
-                        <td style="border:none;" colspan="3">
-                            <table id="tbl" style="border:none;" class="table table-striped table-bordered table-hover dataTable no-footer">
+                        <td  style="border:none;" colspan="3">
+                            <table id="tbl" style="border:none;">
                                 <asp:Repeater ID="rptBoard_Attached" runat="server" OnItemDataBound="rptBoard_Attached_OnItemDataBound" >
                                     <ItemTemplate>    
                                         <tr>
@@ -178,8 +135,8 @@
                                 </asp:Repeater>
                                 <tr>
                                     <td style="border:none;">
-                                        <input type="file" class="form-control" name="BoardFileUpload" id="inFileUpload_1" onchange="javascript:FileExtension(this);" style="width: 50%;" />
-                                        <input type="button" class="buttons" id="btnFileAdd" name="btnFileAdd" value="추가" style="width: 50%;" onclick="call();"/>
+                                        <input type="file" name="BoardFileUpload" id="inFileUpload_1" onchange="javascript:FileExtension(this);" style="width: 350px;" />
+                                        <input type="button" id="btnFileAdd" name="btnFileAdd" style="width:70px" value="추가" onclick="call();"/>
                                     </td>
                                 </tr>
                             </table>
@@ -203,15 +160,11 @@
                 </tbody>
             </table>
 
-        </div>
-        <div>
-            <div class="buttonwrapper dt-toolbar-footer">
-                <div class="col-sm-6 col-xs-12 hidden-xs">
-                    <asp:LinkButton ID="lbtnCancel" runat="server" CssClass="buttons" OnClick="lbtnCancel_Click"></asp:LinkButton>
-                    <asp:LinkButton ID="lbtnValidationDelete" CssClass="buttons" runat="server" OnClick="lbtnValidation_Click"></asp:LinkButton>
-                    <asp:LinkButton ID="lbtnValidationSave" CssClass="buttons" runat="server" OnClientClick="return InputValidation();" OnClick="lbtnValidation_Click"></asp:LinkButton>
-                    <asp:LinkButton ID="lbtnValidationModify" CssClass="buttons" runat="server" OnClientClick="return InputValidation();" OnClick="lbtnValidation_Click"></asp:LinkButton>
-                </div>
+            <div class="buttonwrapper">
+                <asp:LinkButton ID="lbtnCancel" runat="server" OnClick="lbtnCancel_Click"></asp:LinkButton>
+                <asp:LinkButton ID="lbtnValidationDelete" runat="server" OnClick="lbtnValidation_Click"></asp:LinkButton>
+                <asp:LinkButton ID="lbtnValidationSave" runat="server" OnClientClick="return InputValidation();" OnClick="lbtnValidation_Click"></asp:LinkButton>
+                <asp:LinkButton ID="lbtnValidationModify" runat="server" OnClientClick="return InputValidation();" OnClick="lbtnValidation_Click"></asp:LinkButton>
             </div>
         </div>
         <!--// contents -->
@@ -223,24 +176,4 @@
 
         <div class="contentAreaBtm"></div>
     </div>
-</asp:Content>
-
-<asp:Content ID="Content2" ContentPlaceHolderID="cphTotalBBS_Footer" runat="server">
-<script type="text/javascript" language="javascript">
-    $('.ContentsArea').summernote({
-        height: 200,
-        toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'italic', 'underline', 'clear']],
-            ['fontname', ['fontname']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']],
-            ['table', ['table']],
-            ['insert', ['link', 'picture', 'hr']],
-            ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-    });
-
-</script>
 </asp:Content>

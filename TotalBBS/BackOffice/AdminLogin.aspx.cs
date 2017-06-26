@@ -47,7 +47,7 @@ namespace TotalBBS
         {
             try
             {
-                Login_NTx oView = new Login_NTx();
+                Login_NTx_Dac oView = new Login_NTx_Dac();
 
                 string strTxtLoginId = string.Empty;
                 string strTxtLoginPw = string.Empty;
@@ -71,7 +71,7 @@ namespace TotalBBS
 
                     StringBuilder sbLoginOk = new StringBuilder();
                     sbLoginOk.Append("alert('"+ LoginBeen + "');");
-                    sbLoginOk.Append("location.href=\"/BackOffice/Main.aspx\"");
+                    sbLoginOk.Append("location.href=\"/BackOffice/Board/BoardList.aspx\"");
                     this.LoginOK_Process(sbLoginOk);
                 }
             }

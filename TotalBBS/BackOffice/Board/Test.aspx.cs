@@ -76,7 +76,7 @@ namespace TotalBBS.BackOffice.Board
             catch (Exception ex)
             {
                 #region [Error Logger] 로그인을 한경우
-                //ErrorLogger_Tx_Dac.GetErrorLogger_Tx_Dac().ED_CO_INSERT_ERROR_LOGGER_INFO(ex);
+                //ErrorLogger_Tx_Dac.GetErrorLogger_Tx_Dac().TB_TOTABBS_ERROR_LOGGER_INFO_INS_SP(ex);
                 #endregion
             }
         }

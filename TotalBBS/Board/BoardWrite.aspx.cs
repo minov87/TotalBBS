@@ -11,9 +11,9 @@ using TotalBBS.Common.Dac.Common;
 using TotalBBS.Common.Dac.Board;
 using TotalBBS.Common.Bean.Board;
 
-namespace TotalBBS.BackOffice.Board
+namespace TotalBBS.Board
 {
-    public partial class BoardWrite : AdminBasePage
+    public partial class BoardWrite : Page
     {
         //파일업로드 경로(폴더명)
         private string FileUploadPath = "Board";
@@ -28,7 +28,7 @@ namespace TotalBBS.BackOffice.Board
 
         private int iIdx = 0;
         private int iPage = 0;
-        private string DefaultPage = "/BackOffice/Board/BoardList.aspx";
+        private string DefaultPage = "/Board/BoardList.aspx";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -90,6 +90,7 @@ namespace TotalBBS.BackOffice.Board
             }
         }
 
+        #region [기본셋팅] 페이지 기본값 정의
         private void GetPageInfoSetting(string ParamBoardCategory, string ParamField, string ParamKey, int Idx, int PageNo, string CMD)
         {
             //페이지 HTML 언어 세팅
@@ -136,6 +137,7 @@ namespace TotalBBS.BackOffice.Board
             }
             else
             {
+                this.ddlBoardCategory.Enabled = true;
                 this.ddlWriteCategory.Items.Clear();
                 DropDownListUtil.SetDropDownListValue(WriteCategorydt, this.ddlWriteCategory, this.ddlWriteCategory.SelectedValue, DropDownListUtil.DropDownFlag.Select);
             }
@@ -153,9 +155,9 @@ namespace TotalBBS.BackOffice.Board
                 this.trVisible_2.Visible = false;
             }
             
-            this.GetPageSetting(Idx, ds, CMD);
-            
+            this.GetPageSetting(Idx, ds, CMD);  
         }
+        #endregion
 
         #region [기본셋팅] 등록 또는 수정
         private void GetPageSetting(int Idx, DataSet ds, string CMD)
@@ -163,31 +165,21 @@ namespace TotalBBS.BackOffice.Board
 
             if (CMD.Equals("C"))
             {
-                this.lbtnValidationSave.Text = "<span class='btn btn-default'>확인</span>";
+                this.lbtnValidationSave.Text = "<span>확인</span>";
                 this.lbtnValidationSave.CssClass = "buttons";
 
-                this.lbtnCancel.Text = "<span class='btn btn-default'>취소</span>";
+                this.lbtnCancel.Text = "<span>취소</span>";
                 this.lbtnCancel.CssClass = "buttons mg_l5";
                 this.lbtnValidationDelete.Visible = false;
-
-                if (!admin.MemberId.Equals(null) || !admin.MemberId.Equals(""))
-                {
-                    this.txtUserId.Text = admin.MemberId.ToString();
-                }
-                if (!admin.MemberNm.Equals(null) || !admin.MemberNm.Equals(""))
-                { 
-                    this.txtWriter.Text = admin.MemberNm.ToString();
-                }
-
             }
             else if (CMD.Equals("M"))
             {
-                this.lbtnValidationModify.Text = "<span class='btn btn-primary'>수정</span>";
+                this.lbtnValidationModify.Text = "<span>수정</span>";
                 this.lbtnValidationModify.CssClass = "buttons fl_r";
-                this.lbtnCancel.Text = "<span class='btn btn-default'>목록</span>";
+                this.lbtnCancel.Text = "<span>목록</span>";
                 this.lbtnCancel.CssClass = "buttons fl_l";
 
-                this.lbtnValidationDelete.Text = "<span class='btn btn-success'>삭제</span>";
+                this.lbtnValidationDelete.Text = "<span>삭제</span>";
                 this.lbtnValidationDelete.CssClass = "buttons mg_l5 fl_r";
                 this.lbtnValidationDelete.OnClientClick = "return fnDelConfirm();";
 
@@ -214,7 +206,6 @@ namespace TotalBBS.BackOffice.Board
                 }
                 else
                 {
-                    this.ddlWriteCategory.Enabled = true;
                     this.ddlWriteCategory.Items.Clear();
                     DropDownListUtil.SetDropDownListValue(WriteCategorydt, this.ddlWriteCategory, dt1.Rows[0]["intWriteCategory"].ToString(), DropDownListUtil.DropDownFlag.Select);
                 }
@@ -224,7 +215,7 @@ namespace TotalBBS.BackOffice.Board
                 this.txtUserId.Text = dt1.Rows[0]["strUserId"].ToString();
                 this.txtWriter.Text = dt1.Rows[0]["strWriter"].ToString();
                 this.txtSubject.Text = dt1.Rows[0]["strSubject"].ToString();
-                this.txtContent.Text = TextControl.Delete_Tag(dt1.Rows[0]["strContent"].ToString());
+                this.txtContent.Text = dt1.Rows[0]["strContent"].ToString();
                 this.ltRegiDateValue.Text = dt1.Rows[0]["dateRegDate"].ToString();
                 this.ltViewCntValue.Text = dt1.Rows[0]["intViewCount"].ToString();
 
@@ -247,22 +238,6 @@ namespace TotalBBS.BackOffice.Board
         }
         #endregion
 
-        #region [첨부파일] 데이터 바인딩
-        protected void rptBoard_Attached_OnItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            // 데이타 처리
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                DataRowView drv = (DataRowView)e.Item.DataItem;
-
-                Literal ltAttachedFile = (Literal)e.Item.FindControl("ltAttachedFile");
-                Literal ltAttachedCheckBox = (Literal)e.Item.FindControl("ltAttachedCheckBox");
-                ltAttachedFile.Text = drv.Row["strRealFileName"].ToString();
-                ltAttachedCheckBox.Text = "<input type=\"checkbox\" name=\"chkAttached_" + drv.Row["intBBSIdx"].ToString() + "\" id=\"chkAttached_" + drv.Row["intIdx"].ToString() + "\" value=\"" + drv.Row["intIdx"].ToString() + "\" class=\"va_3\" /> 삭제";
-            }
-        }
-        #endregion
-
         #region [lbtnCancel_Click] 취소 버튼
         protected void lbtnCancel_Click(object sender, EventArgs e)
         {
@@ -281,7 +256,7 @@ namespace TotalBBS.BackOffice.Board
                     Cache.Remove("BoardModify");
                 }
 
-                Response.Redirect("/BackOffice/Board/BoardList.aspx", false);
+                Response.Redirect("/Board/BoardList.aspx", false);
             }
             catch (Exception ex)
             {
@@ -750,6 +725,22 @@ namespace TotalBBS.BackOffice.Board
                 #region [Error Logger] 로그인을 한경우
                 //ErrorLogger_Tx_Dac.GetErrorLogger_Tx_Dac().TB_TOTABBS_ERROR_LOGGER_INFO_INS_SP(ex);
                 #endregion
+            }
+        }
+        #endregion
+
+        #region [첨부파일] 데이터 바인딩
+        protected void rptBoard_Attached_OnItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            // 데이타 처리
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                DataRowView drv = (DataRowView)e.Item.DataItem;
+
+                Literal ltAttachedFile = (Literal)e.Item.FindControl("ltAttachedFile");
+                Literal ltAttachedCheckBox = (Literal)e.Item.FindControl("ltAttachedCheckBox");
+                ltAttachedFile.Text = drv.Row["strRealFileName"].ToString();
+                ltAttachedCheckBox.Text = "<input type=\"checkbox\" name=\"chkAttached_" + drv.Row["intBBSIdx"].ToString() + "\" id=\"chkAttached_" + drv.Row["intIdx"].ToString() + "\" value=\"" + drv.Row["intIdx"].ToString() + "\" class=\"va_3\" /> 삭제";
             }
         }
         #endregion

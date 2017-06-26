@@ -16,78 +16,85 @@
 
     function FrmModify(frm1, frm2) {
         $("#cphTotalBBS_ParamIdx").val(frm1);
-        alert($("#cphTotalBBS_ParamIdx").val());
         __doPostBack('ctl00$cphTotalBBS$lbtnModify', '');
     }
 //-->
 </script>
 <div class="contentArea">
-    <div class="contentAreaTop">
+    <div class="contentAreaTop dataTables_wrapper form-inline dt-bootstrap no-footer">
         <div class="titleArea">
-            <h3 class="tit"><asp:Literal ID="ltTitle" runat="server"></asp:Literal></h3>
+            <h1 class="page-title txt-color-blueDark"><asp:Literal ID="ltTitle" runat="server"></asp:Literal></h1>
         </div>
-                           
-        <div class="searchArea ov_fl">
-            <span class="fl_l">
-                <asp:Literal ID="ltBoardCategory" runat="server" ></asp:Literal>&nbsp;<asp:DropDownList ID="ddlBoardCategory" runat="server" Height="20px" Width="130px"></asp:DropDownList>
-            </span>
-            <span class="fl_r">
-                <asp:DropDownList ID="FIELD" runat="server" Height="20px" Width="100px"></asp:DropDownList>                            
-                <asp:TextBox ID="KEY" CssClass="text" Width="200px" ValidationGroup="ListSearch" runat="server" MaxLength="20" ClientIDMode="Static"></asp:TextBox>        
-                <asp:LinkButton ID="lbtnSearch" runat="server" OnClientClick="return SearchValidation(this);" ValidationGroup="ListSearch" OnClick="lbtnSearch_Click"></asp:LinkButton>
-            </span>
-            <span style="float:right">
-                <asp:DropDownList ID="ddlPageViewRow" runat="server" OnSelectedIndexChanged="ddlPageViewRow_itemSelected" AutoPostBack="true">
-                    <asp:ListItem Text="10줄 보기" Value="10" Selected="True"></asp:ListItem>
-                    <asp:ListItem Text="20줄 보기" Value="20"></asp:ListItem>
-                    <asp:ListItem Text="30줄 보기" Value="30"></asp:ListItem>
-                    <asp:ListItem Text="40줄 보기" Value="40"></asp:ListItem>
-                    <asp:ListItem Text="50줄 보기" Value="50"></asp:ListItem>
-                    <asp:ListItem Text="100줄 보기" Value="100"></asp:ListItem>
-                </asp:DropDownList>
-            </span>
+        
+        <div>
+            <asp:Literal ID="ltTotalPosts" runat="server"></asp:Literal> : <asp:Label ID="ltTotalCnt" runat="server" ></asp:Label>
         </div>
-
-        <p><asp:Literal ID="ltTotalPosts" runat="server"></asp:Literal> : <asp:Label ID="ltTotalCnt" runat="server" ></asp:Label></p>
+        
+        <div class="searchArea ov_fl dt-toolbar">
+            <div class="col-xs-12 col-sm-6">
+                <div class="dataTables_filter">
+                    <span class="fl_l">
+                        <asp:Literal ID="ltBoardCategory" runat="server" ></asp:Literal>&nbsp;<asp:DropDownList ID="ddlBoardCategory" runat="server" CssClass="form-control input-sm"></asp:DropDownList>
+                    </span>
+                    <span class="fl_r">
+                        <asp:DropDownList ID="FIELD" CssClass="form-control input-sm" runat="server"></asp:DropDownList>                            
+                        <asp:TextBox ID="KEY" CssClass="text form-control" ValidationGroup="ListSearch" runat="server" MaxLength="20" ClientIDMode="Static"></asp:TextBox>        
+                        <asp:LinkButton ID="lbtnSearch" runat="server" OnClientClick="return SearchValidation(this);" ValidationGroup="ListSearch" OnClick="lbtnSearch_Click"></asp:LinkButton>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xs-12 hidden-xs">
+                <span style="float:right">
+                    <asp:DropDownList ID="ddlPageViewRow" runat="server" CssClass="form-control input-sm" OnSelectedIndexChanged="ddlPageViewRow_itemSelected" AutoPostBack="true">
+                        <asp:ListItem Text="10줄 보기" Value="10" Selected="True"></asp:ListItem>
+                        <asp:ListItem Text="20줄 보기" Value="20"></asp:ListItem>
+                        <asp:ListItem Text="30줄 보기" Value="30"></asp:ListItem>
+                        <asp:ListItem Text="40줄 보기" Value="40"></asp:ListItem>
+                        <asp:ListItem Text="50줄 보기" Value="50"></asp:ListItem>
+                        <asp:ListItem Text="100줄 보기" Value="100"></asp:ListItem>
+                    </asp:DropDownList>
+                </span>
+            </div>
+        </div>
 
         <div>
             <asp:Repeater ID="rptGetList" runat="server" OnItemDataBound="rptGetList_ItemDataBound">
                 <HeaderTemplate>
-                    <table>
+                    <table class="table table-striped table-bordered table-hover dataTable no-footer">
                         <colgroup>
                             <col width="5%" />
                             <col width="10%" />
                             <col width="10%" />
                             <col width="10%" />
                             <col width="%" />
-                            <col width="7%" />
-                            <col width="7%" />
                             <col width="5%" />
+                            <col width="7%" />
+                            <col width="11%" />
                         </colgroup>
                         <thaed>
                             <tr>
-                                <th><asp:Literal ID="ltThChkBoxAll" runat="server"></asp:Literal></th>
-                                <th><asp:Literal ID="ltThIdx" runat="server"></asp:Literal></th>
-                                <th><asp:Literal ID="ltThBoardCate" runat="server"></asp:Literal></th>
-                                <th><asp:Literal ID="ltThWriteCate" runat="server"></asp:Literal></th>
-                                <th><asp:Literal ID="ltThSubject" runat="server"></asp:Literal></th>
-                                <th><asp:Literal ID="ltThViewCount" runat="server"></asp:Literal></th>
-                                <th><asp:Literal ID="ltThWriter" runat="server"></asp:Literal></th>
-                                <th><asp:Literal ID="ltThRegdate" runat="server"></asp:Literal></th>
+                                <th style="text-align:center;"><asp:Literal ID="ltThChkBoxAll" runat="server"></asp:Literal></th>
+                                <th style="text-align:center;" class="sorting"><asp:Literal ID="ltThIdx" runat="server"></asp:Literal></th>
+                                <th style="text-align:center;" class="sorting"><asp:Literal ID="ltThBoardCate" runat="server"></asp:Literal></th>
+                                <th style="text-align:center;" class="sorting"><asp:Literal ID="ltThWriteCate" runat="server"></asp:Literal></th>
+                                <th style="text-align:center;" class="sorting"><asp:Literal ID="ltThSubject" runat="server"></asp:Literal></th>
+                                <th style="text-align:center;"><asp:Literal ID="ltThViewCount" runat="server"></asp:Literal></th>
+                                <th style="text-align:center;"><asp:Literal ID="ltThWriter" runat="server"></asp:Literal></th>
+                                <th style="text-align:center;" class="sorting"><asp:Literal ID="ltThRegdate" runat="server"></asp:Literal></th>
                             </tr>
                         </thaed>
                         <tbody>
                 </HeaderTemplate>
                 <ItemTemplate>
                             <tr>
-                                <td><asp:Literal ID="ltChkBoxList" runat="server"></asp:Literal></td>
-                                <td><asp:Literal ID="ltIdx" runat="server"></asp:Literal></td>
-                                <td><asp:Literal ID="ltBoardCate" runat="server"></asp:Literal></td>
-                                <td><asp:Literal ID="ltWriteCate" runat="server"></asp:Literal></td>
+                                <td style="text-align:center;"><asp:Literal ID="ltChkBoxList" runat="server"></asp:Literal></td>
+                                <td style="text-align:center;"><asp:Literal ID="ltIdx" runat="server"></asp:Literal></td>
+                                <td style="text-align:center;"><asp:Literal ID="ltBoardCate" runat="server"></asp:Literal></td>
+                                <td style="text-align:center;"><asp:Literal ID="ltWriteCate" runat="server"></asp:Literal></td>
                                 <td><asp:LinkButton ID="lbtSubject" runat="server"></asp:LinkButton></td>
-                                <th><asp:Literal ID="ltViewCount" runat="server"></asp:Literal></th>
-                                <td><asp:Literal ID="ltWriter" runat="server"></asp:Literal></td>
-                                <td><asp:Literal ID="ltRegdate" runat="server"></asp:Literal></td>
+                                <th style="text-align:center;"><asp:Literal ID="ltViewCount" runat="server"></asp:Literal></th>
+                                <td style="text-align:center;"><asp:Literal ID="ltWriter" runat="server"></asp:Literal></td>
+                                <td style="text-align:center;"><asp:Literal ID="ltRegdate" runat="server"></asp:Literal></td>
                             </tr>
                 </ItemTemplate>
                 <FooterTemplate>
@@ -98,16 +105,23 @@
             </asp:Repeater>
 
             <!--// 목록 -->
-            <div class="buttonwrapper">
-                <asp:LinkButton ID="lbtnDelete" CssClass="buttons mg_l5" runat="server" OnClick="lbtnDelete_Click" OnClientClick="return fnCheckBoxCustomerRemove('ChkBoxList')"></asp:LinkButton>
-                <asp:LinkButton ID="lbtnCreate" CssClass="buttons" runat="server" OnClick="lbtnCreate_Click"></asp:LinkButton>
+            <div class="buttonwrapper dt-toolbar-footer">
+                <div clss="col-sm-6 col-xs-12 hidden-xs">
+                    <asp:LinkButton ID="lbtnList" runat="server" OnClick="lbtnList_Click"></asp:LinkButton>
+                    <asp:LinkButton ID="lbtnDelete" CssClass="buttons mg_l5" runat="server" OnClick="lbtnDelete_Click" OnClientClick="return fnCheckBoxCustomerRemove('ChkBoxList')"></asp:LinkButton>
+                    <asp:LinkButton ID="lbtnCreate" CssClass="buttons" runat="server" OnClick="lbtnCreate_Click"></asp:LinkButton>
+                </div>
+                <!-- 페이징-->         
+                <div class="col-xs-12 col-sm-6">
+                    <div class="dataTables_paginate paging_simple_numbers" id="datatable_tabletools_paginate">
+                        <ul class="paging pagination">
+			                <TB:PagingHelper ID="PagingHelper1" SkinID="PagingHelper" runat="server" Width="100%" OnOnPageIndexChanged="PagingHelper1_OnPageIndexChanged" />
+		                </ul>  
+                    </div>
+                </div>
+                <!--// 페이징 -->
             </div>
-                            
-            <!-- 페이징-->                           
-            <ul class="paging">
-			    <TB:PagingHelper ID="PagingHelper1" SkinID="PagingHelper" runat="server" Width="100%" OnOnPageIndexChanged="PagingHelper1_OnPageIndexChanged" />
-		    </ul>                            
-            <!--// 페이징 -->
+
 
             <!--// contents end -->
             <!-- hidden -->

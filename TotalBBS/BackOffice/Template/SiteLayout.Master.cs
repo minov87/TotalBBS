@@ -15,7 +15,24 @@ namespace TotalBBS.BackOffice.Template
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.ltAccNm.Text = admin.MemberNm + "(" + admin.MemberNm + ")";
+            try
+            {
+                if(admin.MemberId.Equals(null) || admin.MemberId.Equals(""))
+                {
+                    //CookieInfo.getCookieLogout();
+                    //Response.Redirect("/BackOffice/AdminLogin.aspx", false);
+                }
+                else
+                {
+                    this.ltAccNm.Text = admin.MemberNm + "(" + admin.MemberNm + ")";
+                }
+            }
+            catch (Exception ex)
+            {
+                #region [Error Logger] 로그인을 하는경우
+                //ErrorLogger_Tx_Dac.GetErrorLogger_Tx_Dac().TB_TOTABBS_ERROR_LOGGER_INFO_INS_SP(ex, admin.MemberId, admin.MemberId);
+                #endregion
+            }
         }
 
         protected void lbtnLogout_Click(object sender, EventArgs e)
@@ -28,7 +45,7 @@ namespace TotalBBS.BackOffice.Template
             catch (Exception ex)
             {
                 #region [Error Logger] 로그인을 하는경우
-                //ErrorLogger_Tx_Dac.GetErrorLogger_Tx_Dac().ED_CO_INSERT_ERROR_LOGGER_INFO(ex, admin.MemberId, admin.MemberId);
+                //ErrorLogger_Tx_Dac.GetErrorLogger_Tx_Dac().TB_TOTABBS_ERROR_LOGGER_INFO_INS_SP(ex, admin.MemberId, admin.MemberId);
                 #endregion
             }
         }

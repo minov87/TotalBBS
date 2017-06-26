@@ -25,9 +25,9 @@ namespace TotalBBS.Common.Library
             string FormNameSettoing = Bean.strAdminId;
             string data = string.Concat(new object[]
             {
-                "AdminId=", Bean.strAdminId,
-                "&AdminName=", Bean.strAdminName,
-                "&AdminAuth=", Bean.chrAdminAuth,
+                "MemberId=", Bean.strAdminId,
+                "&MemberNm=", Bean.strAdminName,
+                "&MemberAuth=", Bean.chrAdminAuth,
                 "&Expire=", DateTime.Now.AddDays(1)
             });
 

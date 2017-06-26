@@ -7,7 +7,7 @@
 // </자동 생성됨>
 //------------------------------------------------------------------------------
 
-namespace TotalBBS.BackOffice.Board {
+namespace TotalBBS.Board {
     
     
     public partial class BoardList {
@@ -20,24 +20,6 @@ namespace TotalBBS.BackOffice.Board {
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal ltTitle;
-        
-        /// <summary>
-        /// ltTotalPosts 컨트롤입니다.
-        /// </summary>
-        /// <remarks>
-        /// 자동 생성 필드입니다.
-        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltTotalPosts;
-        
-        /// <summary>
-        /// ltTotalCnt 컨트롤입니다.
-        /// </summary>
-        /// <remarks>
-        /// 자동 생성 필드입니다.
-        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ltTotalCnt;
         
         /// <summary>
         /// ltBoardCategory 컨트롤입니다.
@@ -94,6 +76,24 @@ namespace TotalBBS.BackOffice.Board {
         protected global::System.Web.UI.WebControls.DropDownList ddlPageViewRow;
         
         /// <summary>
+        /// ltTotalPosts 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltTotalPosts;
+        
+        /// <summary>
+        /// ltTotalCnt 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ltTotalCnt;
+        
+        /// <summary>
         /// rptGetList 컨트롤입니다.
         /// </summary>
         /// <remarks>
@@ -101,24 +101,6 @@ namespace TotalBBS.BackOffice.Board {
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptGetList;
-        
-        /// <summary>
-        /// lbtnList 컨트롤입니다.
-        /// </summary>
-        /// <remarks>
-        /// 자동 생성 필드입니다.
-        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnList;
-        
-        /// <summary>
-        /// lbtnDelete 컨트롤입니다.
-        /// </summary>
-        /// <remarks>
-        /// 자동 생성 필드입니다.
-        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnDelete;
         
         /// <summary>
         /// lbtnCreate 컨트롤입니다.
@@ -164,15 +146,6 @@ namespace TotalBBS.BackOffice.Board {
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField ParamPageViewRow;
-        
-        /// <summary>
-        /// lbtnModify 컨트롤입니다.
-        /// </summary>
-        /// <remarks>
-        /// 자동 생성 필드입니다.
-        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnModify;
         
         /// <summary>
         /// hdfBoardCategory 컨트롤입니다.

@@ -321,7 +321,7 @@ namespace TotalBBS.Common.WebLib
             {
                 if (i == page)
                 {
-                    Controls.Add(new LiteralControl(" <strong>" + i + "</strong> "));
+                    Controls.Add(new LiteralControl("<strong>" + i + "</strong>"));
                 }
                 else
                 {

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace TotalBBS_New
+namespace TotalBBS
 {
     public partial class SiteMaster : MasterPage
     {

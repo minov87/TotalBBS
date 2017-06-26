@@ -37,6 +37,7 @@ namespace TotalBBS.Common.Dac.Board
             SqlParameter[] parameters = new SqlParameter[]
             {
                         new SqlParameter("@intIdx", Idx),
+                        new SqlParameter("@intBoardCategory", intBoardCategory),
                         new SqlParameter("@intWriteCategory", intWriteCategory),
                         new SqlParameter("@strUserId", strUserId),
                         new SqlParameter("@strWriter", strWriter),
@@ -45,10 +46,10 @@ namespace TotalBBS.Common.Dac.Board
                         new SqlParameter("RETURN_VALUE", SqlDbType.Int)
             };
 
-            parameters[6].Direction = ParameterDirection.ReturnValue;
+            parameters[7].Direction = ParameterDirection.ReturnValue;
             SQLHelper.ExecuteNonQuery(Global.DataBaseConnection, CommandType.StoredProcedure, "[dbo].[UP_TOTALBBS_BOARD_INFO_UPD_SP]", parameters);
 
-            return (int)parameters[6].Value;
+            return (int)parameters[7].Value;
         }
         #endregion
 
@@ -153,10 +154,10 @@ namespace TotalBBS.Common.Dac.Board
                 new SqlParameter("RETURN_VALUE", SqlDbType.Int)
             };
 
-            parameters[3].Direction = ParameterDirection.ReturnValue;
+            parameters[2].Direction = ParameterDirection.ReturnValue;
             SQLHelper.ExecuteNonQuery(Global.DataBaseConnection, CommandType.StoredProcedure, "[dbo].[UP_TOTALBBS_BOARD_FILE_INFO_VIEW_DEL_SP]", parameters);
 
-            return (int)parameters[3].Value;
+            return (int)parameters[2].Value;
         }
         #endregion
     }

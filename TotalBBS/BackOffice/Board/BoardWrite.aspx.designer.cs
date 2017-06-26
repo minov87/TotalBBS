@@ -11,6 +11,7 @@ namespace TotalBBS.BackOffice.Board {
     
     
     public partial class BoardWrite {
+        
         /// <summary>
         /// ltTitle 컨트롤입니다.
         /// </summary>

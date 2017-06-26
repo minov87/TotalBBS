@@ -12,7 +12,7 @@ namespace TotalBBS.Common.Dac.Board
     public class Board_NTx_Dac
     {
         #region [게시판 관리] 목록 조회
-         public List<BoardBean> TOTALBBS_BOARD_INFO_SEL(int PagePerData, int CurrentPage, string BoardCategory, string GET_TYPE, string FIELD, string KEY)
+         public List<BoardBean> TOTALBBS_BOARD_INFO_SEL(int PagePerData, int CurrentPage, string BoardCategory, string GET_TYPE, string ORDERBY, string FIELD, string KEY)
         {
             SqlParameter[] parameters = new SqlParameter[]
             {
@@ -20,6 +20,7 @@ namespace TotalBBS.Common.Dac.Board
                 new SqlParameter("@CurrentPage", CurrentPage),
                 new SqlParameter("@BoardCategory",  Convert.ToInt32(BoardCategory)),
                 new SqlParameter("@GET_TYPE", GET_TYPE),
+                new SqlParameter("@ORDERBY", ORDERBY),
                 new SqlParameter("@FIELD", FIELD),
                 new SqlParameter("@KEY", KEY)
             };
@@ -49,7 +50,7 @@ namespace TotalBBS.Common.Dac.Board
         #endregion
 
         #region [게시판 관리] 목록 총개수 조회
-        public int TOTALBBS_BOARD_INFO_COUNT_SEL(int PagePerData, int CurrentPage, string BoardCategory, string GET_TYPE, string FIELD, string KEY)
+        public int TOTALBBS_BOARD_INFO_COUNT_SEL(int PagePerData, int CurrentPage, string BoardCategory, string GET_TYPE, string ORDERBY, string FIELD, string KEY)
         {
             SqlParameter[] parameters = new SqlParameter[]
             {
@@ -57,6 +58,7 @@ namespace TotalBBS.Common.Dac.Board
                 new SqlParameter("@CurrentPage", CurrentPage),
                 new SqlParameter("@BoardCategory", BoardCategory),
                 new SqlParameter("@GET_TYPE", GET_TYPE),
+                new SqlParameter("@ORDERBY", ORDERBY),
                 new SqlParameter("@FIELD", FIELD),
                 new SqlParameter("@KEY", KEY)
             };

@@ -14,9 +14,9 @@ using TotalBBS.Common.Dac.Common;
 using System.Data;
 using System.Linq;
 
-namespace TotalBBS.BackOffice.Board
+namespace TotalBBS.Board
 {
-    public partial class BoardList : AdminBasePage
+    public partial class BoardList : Page
     {
         private string strBoardCategory = "-1";
         private string strField = string.Empty;
@@ -45,7 +45,7 @@ namespace TotalBBS.BackOffice.Board
                 if (!IsPostBack)
                 {
                     this.ParameterSetting();
-                    //슈퍼관리자이면
+                    // 사용자 로그인 체크
                     //if (admin.MemberAuth.Equals("1"))
                     {
                         if (Request.QueryString["Page"] != null)
@@ -64,7 +64,7 @@ namespace TotalBBS.BackOffice.Board
                     //}
                     //else
                     //{
-                    //    JavaScript.AccessAlertLocation("접근권한이 없습니다.");
+                    //    JavaScript.AccessAlertLocation("로그인 후 이용가능 합니다.");
                     //}
                 }
             }
@@ -76,16 +76,15 @@ namespace TotalBBS.BackOffice.Board
             }
         }
 
+        #region [기본셋팅] 페이지 기본값 정의
         private void GetPageDefaultSetting()
         {
             this.ltTitle.Text = "게시글 관리";
             this.ltTotalPosts.Text = "전체 게시글 수";
 
             #region [버튼 설정]
-            this.lbtnList.Text = "<span class='btn btn-default'>목록</span>";
-            this.lbtnCreate.Text = "<span class='btn btn-primary'>등록</span>";
-            this.lbtnDelete.Text = "<span class='btn btn-success'>삭제</span>";
-            this.lbtnSearch.Text = "<span class='btn btn-warning'>검색</span>";
+            this.lbtnCreate.Text = "<span>등록</span>";
+            this.lbtnSearch.Text = "<span>검색</span>";
 
             #endregion
 
@@ -113,7 +112,9 @@ namespace TotalBBS.BackOffice.Board
             }
             #endregion
         }
+        #endregion
 
+        #region [기본셋팅] 파라메타 설정
         private void ParameterSetting()
         {
             strField = WebUtil.SCRequestFormString("FIELD", "ALL");
@@ -123,14 +124,18 @@ namespace TotalBBS.BackOffice.Board
             intPageViewRow = IntegerUtil.intPage(WebUtil.SCRequestFormString("ParamPageViewRow", string.Empty), PageSize);
             strBoardCategory = WebUtil.SCRequestFormString("ddlBoardCategory", "-1");
         }
+        #endregion
 
+        #region [게시판] 페이지값 이동 관련
         protected void Page_Move(int Page, PagingHelper PagingHelper)
         {
             PagingHelper1.PageSize = PageSize;
             PagingHelper1.CurrentPageIndex = Page;
             PagingHelper1.RenderPageLink();
         }
+        #endregion
 
+        #region [게시판] 페이지값 변경 관련
         protected void PagingHelper1_OnPageIndexChanged(object sender, PagingEventArgs e)
         {
             try
@@ -144,7 +149,9 @@ namespace TotalBBS.BackOffice.Board
                 #endregion
             }
         }
+        #endregion
 
+        #region [게시판] 게시글 List 객체 담기
         private void GetListInfo(int PagePerData, int CurrentPage, string BoardCategory, string FIELD, string KEY)
         {
             Board_NTx_Dac oWS = new Board_NTx_Dac();
@@ -177,7 +184,9 @@ namespace TotalBBS.BackOffice.Board
             PagingHelper1.VirtualItemCount = NoDataTotalCnt;
             ParamPage.Value = CurrentPage.ToString();
         }
+        #endregion
 
+        #region [게시판] 데이터 바인딩
         protected void rptGetList_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Header)
@@ -190,9 +199,8 @@ namespace TotalBBS.BackOffice.Board
                 Literal ltThViewCount = (Literal)e.Item.FindControl("ltThViewCount");
                 Literal ltThWriter = (Literal)e.Item.FindControl("ltThWriter");
                 Literal ltThRegdate = (Literal)e.Item.FindControl("ltThRegdate");
-              
-                ltThChkBoxAll.Text = "<input type=\"checkbox\" onclick=\"SelectAllCheckBoxes(this);\" id=\"SelectAllCheckBox\" />";
-                ltThIdx.Text = "일련번호";
+
+                ltThIdx.Text = "<input type=\"checkbox\" onclick=\"SelectAllCheckBoxes(this);\" id=\"SelectAllCheckBox\" />";
                 ltThBoardCate.Text = "게시판 카테고리";
                 ltThWriteCate.Text = "게시글 카테고리";
                 ltThSubject.Text = "제목";
@@ -218,8 +226,7 @@ namespace TotalBBS.BackOffice.Board
                 ltIdx.Text = Convert.ToString(TotalCnt--);
 
                 lbtSubject.Text = GetItems.strSubject;
-                lbtSubject.OnClientClick = "if(!FrmModify('" + GetItems.intIdx.ToString() + "','')) return false;";
-                //lbtSubject.PostBackUrl = "/BackOffice/Board/BoardWrite.aspx";
+                lbtSubject.OnClientClick = "if(!FrmView('" + GetItems.intIdx.ToString() + "','')) return false;";
 
                 Common_NTx_Dac ddlSet = new Common_NTx_Dac();
                 DataTable AllCategorydt = ddlSet.TOTALBBS_ALL_CATEGORY_INFO_SEL(-1);
@@ -233,7 +240,8 @@ namespace TotalBBS.BackOffice.Board
                 ltWriteCate.Text = strWriteCategory;
                 ltWriter.Text = GetItems.strWriter;
                 ltViewCount.Text = Convert.ToString(GetItems.intViewCount);
-                ltRegdate.Text = GetItems.dateRegDate;
+                
+                ltRegdate.Text = String.Format("{0:yyyy/MM/dd HH:mm:ss}", GetItems.dateRegDate);
             }
 
             if (e.Item.ItemType == ListItemType.Footer)
@@ -243,58 +251,6 @@ namespace TotalBBS.BackOffice.Board
                     Literal ltNoData = (Literal)e.Item.FindControl("ltNoData"); //데이타가 없는경우
                     ltNoData.Text = string.Format("<tr><td colspan=\"{ 0}\">{1}</td></tr>", "7", "조회된 데이터가 없습니다.");
                 }
-            }
-        }
-
-        #region [lbtnDelete_Click] 삭제 버튼
-        protected void lbtnDelete_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string ChkBoxListData = string.Empty;
-
-                if (Request.Form["ChkBoxList"] != null)
-                {
-                    ChkBoxListData = Request.Form["ChkBoxList"];
-                }
-
-                if (string.IsNullOrEmpty(ChkBoxListData))
-                {
-                    StringBuilder sbNoData = new StringBuilder();
-                    sbNoData.Append("alert('삭제할 데이타가 없습니다.');");
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "NoData", sbNoData.ToString(), true);
-                }
-                else
-                {
-                    Board_Tx_Dac oWS = new Board_Tx_Dac();
-                    int ReturnValue = oWS.TOTALBBS_BOARD_INFO_MULTI_DEL(ChkBoxListData);
-
-                    //첨부파일 정보 DB 정상 삭제유무 확인 
-                    if (ReturnValue > 0)
-                    {
-                        //뷰스테이트 false 로 삭제 후 리스트 이동
-                        StringBuilder sbDelete = new StringBuilder();
-                        sbDelete.Append("alert('데이터가 삭제되었습니다.');");
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ListInDel", sbDelete.ToString(), true);
-                    }
-                    else
-                    {
-                        StringBuilder sbDelError = new StringBuilder();
-                        sbDelError.Append("alert('데이터 삭제에 실패하였습니다.');");
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ListInDelError", sbDelError.ToString(), true);
-                    }
-                }
-
-                PagingHelper1.PageSize = PageSize;
-                Page_Move(iPage, PagingHelper1);
-
-                this.GetListInfo(PageSize, iPage, strBoardCategory, strField, strKey);
-            }
-            catch (Exception ex)
-            {
-                #region [Error Logger] 로그인을 한경우
-                //ErrorLogger_Tx_Dac.GetErrorLogger_Tx_Dac().TB_TOTABBS_ERROR_LOGGER_INFO_INS_SP(ex, admin.MemberId, admin.MemberNm);
-                #endregion
             }
         }
         #endregion
@@ -326,45 +282,6 @@ namespace TotalBBS.BackOffice.Board
                 ParameterData[4] = WebUtil.SCRequestFormString("ParamPage", string.Empty);
 
                 Cache.Insert("BoardCreate", ParameterData, null, DateTime.Now.AddHours(24), TimeSpan.Zero);
-
-                Response.Redirect("BoardWrite.aspx");
-            }
-            catch (Exception ex)
-            {
-                #region [Error Logger] 로그인을 한경우
-                //ErrorLogger_Tx_Dac.GetErrorLogger_Tx_Dac().TB_TOTABBS_ERROR_LOGGER_INFO_INS_SP(ex, admin.MemberId, admin.MemberNm);
-                #endregion
-            }
-        }
-        #endregion
-
-        #region [lbtnModify_Click] 수정 버튼
-        protected void lbtnModify_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                object obj_BoardCreate = Cache["BoardCreate"];
-                object obj_BoardModify = Cache["BoardModify"];
-
-                if (obj_BoardCreate != null)
-                {
-                    Cache.Remove("BoardCreate");
-                }
-
-                if (obj_BoardModify != null)
-                {
-                    Cache.Remove("BoardModify");
-                }
-
-                string[] ParameterData = new string[5];
-
-                ParameterData[0] = strBoardCategory;
-                ParameterData[1] = strField;
-                ParameterData[2] = strKey;
-                ParameterData[3] = WebUtil.SCRequestFormString("ParamIdx", string.Empty);
-                ParameterData[4] = WebUtil.SCRequestFormString("ParamPage", string.Empty);
-
-                Cache.Insert("BoardModify", ParameterData, null, DateTime.Now.AddHours(24), TimeSpan.Zero);
 
                 Response.Redirect("BoardWrite.aspx");
             }
@@ -425,36 +342,7 @@ namespace TotalBBS.BackOffice.Board
         }
         #endregion
 
-        #region [lbtnList_Click] 취소 버튼
-        protected void lbtnList_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string strhdfCMD = WebUtil.SCRequestFormString("hdfCMD", string.Empty);
-                object obj_BoardCreate = Cache["BoardCreate"];
-                object obj_BoardModify = Cache["BoardModify"];
-
-                if (obj_BoardCreate != null)
-                {
-                    Cache.Remove("BoardCreate");
-                }
-                if (obj_BoardModify != null)
-                {
-                    Cache.Remove("BoardModify");
-                }
-
-                Response.Redirect("/BackOffice/Board/BoardList.aspx", false);
-            }
-            catch (Exception ex)
-            {
-                #region [Error Logger] 로그인을 한경우
-                //ErrorLogger_Tx_Dac.GetErrorLogger_Tx_Dac().TB_TOTABBS_ERROR_LOGGER_INFO_INS_SP(ex, admin.MemberId, admin.MemberNm);
-                #endregion
-            }
-        }
-        #endregion
-
-        #region 검색 입력 체크
+        #region [게시판] 검색 입력 체크
         protected void CustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
         {
             try

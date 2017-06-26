@@ -70,7 +70,7 @@ namespace TotalBBS.Common.WebBase
             if (!string.IsNullOrEmpty(Url.Trim()))
                 return UrlPath + Url;
             else
-                return "~/images/" + Menu + "/" + Width + "_" + Height + ".gif";
+                return "/App_Themes/Images/" + Menu + "/" + Width + "_" + Height + ".gif";
         }
 
         public void LogOut()

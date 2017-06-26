@@ -41,12 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\AdminLogin_NTx.cs" />
+    <Compile Include="Admin\AdminLogin_NTx_Dac.cs" />
     <Compile Include="Board\Board_NTx_Dac.cs" />
     <Compile Include="Board\Board_Tx_Dac.cs" />
     <Compile Include="Common\Common_NTx_Dac.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User\User_NTx_Dac.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TotalBBS.Common.Bean\TotalBBS.Common.Bean.csproj">

@@ -7,10 +7,10 @@
 // </자동 생성됨>
 //------------------------------------------------------------------------------
 
-namespace TotalBBS.BackOffice.Board {
+namespace TotalBBS.Board {
     
     
-    public partial class BoardList {
+    public partial class BoardWrite {
         
         /// <summary>
         /// ltTitle 컨트롤입니다.
@@ -20,24 +20,6 @@ namespace TotalBBS.BackOffice.Board {
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal ltTitle;
-        
-        /// <summary>
-        /// ltTotalPosts 컨트롤입니다.
-        /// </summary>
-        /// <remarks>
-        /// 자동 생성 필드입니다.
-        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltTotalPosts;
-        
-        /// <summary>
-        /// ltTotalCnt 컨트롤입니다.
-        /// </summary>
-        /// <remarks>
-        /// 자동 생성 필드입니다.
-        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ltTotalCnt;
         
         /// <summary>
         /// ltBoardCategory 컨트롤입니다.
@@ -58,138 +40,219 @@ namespace TotalBBS.BackOffice.Board {
         protected global::System.Web.UI.WebControls.DropDownList ddlBoardCategory;
         
         /// <summary>
-        /// FIELD 컨트롤입니다.
+        /// ltWriteCategory 컨트롤입니다.
         /// </summary>
         /// <remarks>
         /// 자동 생성 필드입니다.
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList FIELD;
+        protected global::System.Web.UI.WebControls.Literal ltWriteCategory;
         
         /// <summary>
-        /// KEY 컨트롤입니다.
+        /// ddlWriteCategory 컨트롤입니다.
         /// </summary>
         /// <remarks>
         /// 자동 생성 필드입니다.
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox KEY;
+        protected global::System.Web.UI.WebControls.DropDownList ddlWriteCategory;
         
         /// <summary>
-        /// lbtnSearch 컨트롤입니다.
+        /// ltUserId 컨트롤입니다.
         /// </summary>
         /// <remarks>
         /// 자동 생성 필드입니다.
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnSearch;
+        protected global::System.Web.UI.WebControls.Literal ltUserId;
         
         /// <summary>
-        /// ddlPageViewRow 컨트롤입니다.
+        /// txtUserId 컨트롤입니다.
         /// </summary>
         /// <remarks>
         /// 자동 생성 필드입니다.
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPageViewRow;
+        protected global::System.Web.UI.WebControls.TextBox txtUserId;
         
         /// <summary>
-        /// rptGetList 컨트롤입니다.
+        /// ltWriter 컨트롤입니다.
         /// </summary>
         /// <remarks>
         /// 자동 생성 필드입니다.
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptGetList;
+        protected global::System.Web.UI.WebControls.Literal ltWriter;
         
         /// <summary>
-        /// lbtnList 컨트롤입니다.
+        /// txtWriter 컨트롤입니다.
         /// </summary>
         /// <remarks>
         /// 자동 생성 필드입니다.
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnList;
+        protected global::System.Web.UI.WebControls.TextBox txtWriter;
         
         /// <summary>
-        /// lbtnDelete 컨트롤입니다.
+        /// ltSubject 컨트롤입니다.
         /// </summary>
         /// <remarks>
         /// 자동 생성 필드입니다.
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnDelete;
+        protected global::System.Web.UI.WebControls.Literal ltSubject;
         
         /// <summary>
-        /// lbtnCreate 컨트롤입니다.
+        /// txtSubject 컨트롤입니다.
         /// </summary>
         /// <remarks>
         /// 자동 생성 필드입니다.
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnCreate;
+        protected global::System.Web.UI.WebControls.TextBox txtSubject;
         
         /// <summary>
-        /// PagingHelper1 컨트롤입니다.
+        /// ltContent 컨트롤입니다.
         /// </summary>
         /// <remarks>
         /// 자동 생성 필드입니다.
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
-        protected global::TotalBBS.Common.WebLib.PagingHelper PagingHelper1;
+        protected global::System.Web.UI.WebControls.Literal ltContent;
         
         /// <summary>
-        /// ParamIdx 컨트롤입니다.
+        /// txtContent 컨트롤입니다.
         /// </summary>
         /// <remarks>
         /// 자동 생성 필드입니다.
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField ParamIdx;
+        protected global::System.Web.UI.WebControls.TextBox txtContent;
         
         /// <summary>
-        /// ParamPage 컨트롤입니다.
+        /// rptBoard_Attached 컨트롤입니다.
         /// </summary>
         /// <remarks>
         /// 자동 생성 필드입니다.
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField ParamPage;
+        protected global::System.Web.UI.WebControls.Repeater rptBoard_Attached;
         
         /// <summary>
-        /// ParamPageViewRow 컨트롤입니다.
+        /// trVisible_2 컨트롤입니다.
         /// </summary>
         /// <remarks>
         /// 자동 생성 필드입니다.
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField ParamPageViewRow;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trVisible_2;
         
         /// <summary>
-        /// lbtnModify 컨트롤입니다.
+        /// ltRegiDate 컨트롤입니다.
         /// </summary>
         /// <remarks>
         /// 자동 생성 필드입니다.
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnModify;
+        protected global::System.Web.UI.WebControls.Literal ltRegiDate;
         
         /// <summary>
-        /// hdfBoardCategory 컨트롤입니다.
+        /// ltRegiDateValue 컨트롤입니다.
         /// </summary>
         /// <remarks>
         /// 자동 생성 필드입니다.
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdfBoardCategory;
+        protected global::System.Web.UI.WebControls.Literal ltRegiDateValue;
         
         /// <summary>
-        /// lbtnBoardCategorySearch 컨트롤입니다.
+        /// ltViewCnt 컨트롤입니다.
         /// </summary>
         /// <remarks>
         /// 자동 생성 필드입니다.
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnBoardCategorySearch;
+        protected global::System.Web.UI.WebControls.Literal ltViewCnt;
+        
+        /// <summary>
+        /// ltViewCntValue 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltViewCntValue;
+        
+        /// <summary>
+        /// lbtnCancel 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnCancel;
+        
+        /// <summary>
+        /// lbtnValidationDelete 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnValidationDelete;
+        
+        /// <summary>
+        /// lbtnValidationSave 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnValidationSave;
+        
+        /// <summary>
+        /// lbtnValidationModify 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnValidationModify;
+        
+        /// <summary>
+        /// hdfCMD 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdfCMD;
+        
+        /// <summary>
+        /// hdfIdx 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdfIdx;
+        
+        /// <summary>
+        /// hdfParamPage 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdfParamPage;
+        
+        /// <summary>
+        /// hdfEmailContent 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdfEmailContent;
     }
 }

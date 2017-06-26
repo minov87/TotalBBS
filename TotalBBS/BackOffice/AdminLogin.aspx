@@ -81,7 +81,7 @@
 									<label class="label">Id</label>
 									<label class="input"> <i class="icon-append fa fa-user"></i>
                                         <input type="text" id="TxtLoginId" maxlength="100" class="userid" onkeydown="return (event.keyCode!=13);" runat="server"/>
-										<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter email address/username</b></label>
+										<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter userid</b></label>
 								</section>
 
 								<section>
