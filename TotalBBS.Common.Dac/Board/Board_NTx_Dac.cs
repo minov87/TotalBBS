@@ -40,6 +40,7 @@ namespace TotalBBS.Common.Dac.Board
                     Bean.strSubject = dr["strSubject"].ToString();
                     Bean.intViewCount = Convert.ToInt32(dr["intViewCount"]);
                     Bean.dateRegDate = dr["dateRegDate"].ToString();
+                    Bean.intReplyCount = Convert.ToInt32(dr["intReplyCount"]);
 
                     GetList.Add(Bean);
                 }
@@ -125,6 +126,56 @@ namespace TotalBBS.Common.Dac.Board
             {
                 return ds;
             }
+        }
+        #endregion
+
+        #region [게시판 관리] 댓글 목록 조회
+        public List<BoardReplyBean> TOTALBBS_BOARD_REPLY_INFO_SEL(int PagePerData, int CurrentPage, string GET_TYPE, int Idx)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@PagePerData", PagePerData),
+                new SqlParameter("@CurrentPage", CurrentPage),
+                new SqlParameter("@GET_TYPE", GET_TYPE),
+                new SqlParameter("@intIdx", Idx)
+            };
+
+            List<BoardReplyBean> GetList = new List<BoardReplyBean>();
+            using (SqlDataReader dr = SQLHelper.ExecuteReader(Global.DataBaseConnection, "[dbo].[UP_TOTALBBS_BOARD_REPLY_INFO_SEL_SP]", parameters))
+            {
+                while (dr.Read())
+                {
+                    BoardReplyBean Bean = new BoardReplyBean();
+
+                    Bean.intIdx = Convert.ToInt32(dr["intIdx"]);
+                    Bean.intParentIdx = Convert.ToInt32(dr["intParentIdx"]);
+                    Bean.intBBSIdx = Convert.ToInt32(dr["intBBSIdx"]);
+                    Bean.intDepth = Convert.ToInt32(dr["intDepth"]);
+                    Bean.strUserId = dr["strUserId"].ToString();
+                    Bean.strWriter = dr["strWriter"].ToString();
+                    Bean.strContent = dr["strContent"].ToString();
+                    Bean.dateRegDate = dr["dateRegDate"].ToString();
+
+                    GetList.Add(Bean);
+                }
+
+                return GetList;
+            }
+        }
+        #endregion
+
+        #region [게시판 관리] 댓글 목록 총개수 조회
+        public int TOTALBBS_BOARD_REPLY_INFO_COUNT_SEL(int PagePerData, int CurrentPage, string GET_TYPE, int Idx)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@PagePerData", PagePerData),
+                new SqlParameter("@CurrentPage", CurrentPage),
+                new SqlParameter("@GET_TYPE", GET_TYPE),
+                new SqlParameter("@intIdx", Idx)
+            };
+
+            return Convert.ToInt32(SQLHelper.ExecuteScalar(Global.DataBaseConnection, "[dbo].[UP_TOTALBBS_BOARD_REPLY_INFO_SEL_SP]", parameters));
         }
         #endregion
     }

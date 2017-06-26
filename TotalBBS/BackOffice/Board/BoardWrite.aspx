@@ -222,7 +222,7 @@
         <asp:HiddenField ID="hdfEmailContent" runat="server" />
 
         <div class="contentAreaBtm"></div>
-        <iframe src="BoardReplyList.aspx" runat="server" style="border:0px;"></iframe>
+        <iframe id="ifrmReply" src="" runat="server" style="border:0px;width:100%;overflow-x: hidden;"></iframe>
     </div>
 </asp:Content>
 

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Admin\AdminInfo.cs" />
     <Compile Include="Board\BoardBean.cs" />
+    <Compile Include="Board\BoardReplyBean.cs" />
     <Compile Include="Board\FileBean.cs" />
     <Compile Include="Login\LoginBean.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

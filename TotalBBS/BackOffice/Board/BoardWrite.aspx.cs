@@ -35,6 +35,7 @@ namespace TotalBBS.BackOffice.Board
         {
             if (!IsPostBack)
             {
+                this.ifrmReply.Visible = false;
                 HtmlForm form1 = (HtmlForm)Master.FindControl("form1");
 
                 form1.Method = "post";
@@ -182,6 +183,7 @@ namespace TotalBBS.BackOffice.Board
                     this.txtWriter.Text = admin.MemberNm.ToString();
                 }
 
+                this.ifrmReply.Visible = false;
             }
             else if (CMD.Equals("M"))
             {
@@ -230,6 +232,10 @@ namespace TotalBBS.BackOffice.Board
                 this.txtContent.Text = TextControl.Delete_Tag(dt1.Rows[0]["strContent"].ToString());
                 this.ltRegiDateValue.Text = dt1.Rows[0]["dateRegDate"].ToString();
                 this.ltViewCntValue.Text = dt1.Rows[0]["intViewCount"].ToString();
+
+                //this.ifrmReply.Src = "/BackOffice/Board/BoardReplyList.aspx?intIdx=" + dt1.Rows[0]["intIdx"];
+                ifrmReply.Attributes["src"] = "/BackOffice/Board/BoardReplyList?intIdx=" + dt1.Rows[0]["intIdx"];
+                this.ifrmReply.Visible = true;
 
                 //첨부파일 세팅
                 if (dt2.Rows.Count == 0)

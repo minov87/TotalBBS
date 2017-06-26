@@ -226,7 +226,7 @@ namespace TotalBBS.BackOffice.Board
                 ltChkBoxList.Text = "<input type=\"checkbox\" name=\"ChkBoxList\" id=\"ChkBoxList\" value=\"" + GetItems.intIdx.ToString() + "\" />";
                 ltIdx.Text = Convert.ToString(TotalCnt--);
 
-                lbtSubject.Text = GetItems.strSubject;
+                lbtSubject.Text = GetItems.strSubject + " ("+ GetItems.intReplyCount+ ")";
                 lbtSubject.OnClientClick = "if(!FrmModify('" + GetItems.intIdx.ToString() + "','')) return false;";
                 //lbtSubject.PostBackUrl = "/BackOffice/Board/BoardWrite.aspx";
 

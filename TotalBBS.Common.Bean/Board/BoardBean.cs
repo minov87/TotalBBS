@@ -28,5 +28,7 @@ namespace TotalBBS.Common.Bean.Board
         public string chrDeleteFlag { get; set; }
 
         public int intViewCount { get; set; }
+
+        public int intReplyCount { get; set; }
     }
 }
