@@ -111,13 +111,15 @@
 
             <!--// 목록 -->
             <div class="buttonwrapper dt-toolbar-footer">
-                <div clss="col-sm-6 col-xs-12 hidden-xs">
-                    <asp:LinkButton ID="lbtnList" runat="server" OnClick="lbtnList_Click"></asp:LinkButton>
-                    <asp:LinkButton ID="lbtnDelete" CssClass="buttons mg_l5" runat="server" OnClick="lbtnDelete_Click" OnClientClick="return fnCheckBoxCustomerRemove('ChkBoxList')"></asp:LinkButton>
-                    <asp:LinkButton ID="lbtnCreate" CssClass="buttons" runat="server" OnClick="lbtnCreate_Click"></asp:LinkButton>
+                <div clss="col-sm-6 col-xs-12 hidden-xs" style="width:50%;float:left;">
+                    <div class="">
+                        <asp:LinkButton ID="lbtnList" runat="server" OnClick="lbtnList_Click"></asp:LinkButton>
+                        <asp:LinkButton ID="lbtnDelete" CssClass="buttons mg_l5" runat="server" OnClick="lbtnDelete_Click" OnClientClick="return fnCheckBoxCustomerRemove('ChkBoxList')"></asp:LinkButton>
+                        <asp:LinkButton ID="lbtnCreate" CssClass="buttons" runat="server" OnClick="lbtnCreate_Click"></asp:LinkButton>
+                    </div>
                 </div>
                 <!-- 페이징-->         
-                <div class="col-xs-12 col-sm-6">
+                <div class="col-xs-12 col-sm-6" style="width:50%">
                     <div class="dataTables_paginate paging_simple_numbers" id="datatable_tabletools_paginate">
 			            <TB:PagingHelper ID="PagingHelper1" SkinID="PagingHelper" runat="server" Width="100%" OnOnPageIndexChanged="PagingHelper1_OnPageIndexChanged" />
                     </div>

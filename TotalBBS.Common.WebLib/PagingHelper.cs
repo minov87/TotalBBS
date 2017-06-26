@@ -270,28 +270,37 @@ namespace TotalBBS.Common.WebLib
                 EndPage = pageCount;
             }
 
+            Controls.Add(new LiteralControl("<ul class=\"paging pagination\">"));
+
             lb = new LinkButton();
             lb.CausesValidation = false;
             lb.Command += new CommandEventHandler(this.btnPage_Command);
-
-            Controls.Add(new LiteralControl("<ul class=\"paging pagination\">"));
 
             // 이전 10개 기능 적용
             if(pageCount > 10) 
             {
                 if (currentBlodkEndNo > 10)
                 {
+                    Controls.Add(new LiteralControl("<li class=\"paginate_button previous\">"));
                     lb.CommandArgument = (page - 10 - endNum + 1).ToString();
-                    lb.Text = prevBlockImg_on == null ? "<li class=\"paginate_button\">"+ prev10 + "</li>" : "<img src=\"" + prevBlockImg_on + "\" border=\"0\">";
+                    lb.Text = prevBlockImg_on == null ? prev10 : "<img src=\"" + prevBlockImg_on + "\" border=\"0\">";
 
                     Controls.Add(lb);
                 }
                 else
                 {
-                    tempStr = "<li class=\"paginate_button\">" + prev10 + "</li>";
-                    tempImgStr = "<img src=\"" + prevBlockImg_off + "\" border=\"0\">";
-                    Controls.Add(new LiteralControl(prevBlockImg_off == null ? tempStr : tempImgStr));
+                    //tempStr = prev10;
+                    //tempImgStr = "<img src=\"" + prevBlockImg_off + "\" border=\"0\">";
+                    //Controls.Add(new LiteralControl(prevBlockImg_off == null ? tempStr : tempImgStr));
+
+                    Controls.Add(new LiteralControl("<li class=\"paginate_button previous disabled\">"));
+                    lb.CommandArgument = (page - 10 - endNum).ToString();
+                    lb.Text = prevBlockImg_on == null ? prev10 : "<img src=\"" + prevBlockImg_on + "\" border=\"0\">";
+
+                    Controls.Add(lb);
                 }
+
+                Controls.Add(new LiteralControl("</li>"));
             }
 
             lb = new LinkButton();
@@ -301,17 +310,28 @@ namespace TotalBBS.Common.WebLib
             // 이전 페이지로 가기 기능 적용
             if (page <= 1)
             {
-                tempStr = "<li class=\"paginate_button\">" + prev + "</li>";
-                tempImgStr = "<img src=\"" + prevImg_off + "\" border=\"0\">";
-                Controls.Add(new LiteralControl(prevImg_off == null ? tempStr : tempImgStr));
-            }
-            else
-            {
-                lb.CommandArgument = (page - 1).ToString();
-                lb.Text = prevImg_on == null ? "<li class=\"paginate_button\">" + prev + "</li>" : "<img src=\"" + prevImg_on + "\" border=\"0\">";
+                //tempStr = prev;
+                //tempImgStr = "<img src=\"" + prevImg_off + "\" border=\"0\">";
+                //Controls.Add(new LiteralControl(prevImg_off == null ? tempStr : tempImgStr));
+
+                Controls.Add(new LiteralControl("<li class=\"paginate_button previous disabled\">"));
+
+                lb.CommandArgument = (page).ToString();
+                lb.Text = prevImg_on == null ? prev : "<img src=\"" + prevImg_on + "\" border=\"0\">";
 
                 Controls.Add(lb);
             }
+            else
+            {
+                Controls.Add(new LiteralControl("<li class=\"paginate_button previous\">"));
+
+                lb.CommandArgument = (page - 1).ToString();
+                lb.Text = prevImg_on == null ? prev : "<img src=\"" + prevImg_on + "\" border=\"0\">";
+
+                Controls.Add(lb);
+            }
+
+            Controls.Add(new LiteralControl("</li>"));
 
             // 1,2,3,4,5,6,7,8,9,10
             for (int i = StartPage; i <= EndPage; i++)
@@ -322,12 +342,12 @@ namespace TotalBBS.Common.WebLib
                 }
                 else
                 {
-                    Controls.Add(new LiteralControl("<li class=\"paginate_button \">"));
+                    Controls.Add(new LiteralControl("<li class=\"paginate_button\">"));
                     lb = new LinkButton();
                     lb.CausesValidation = false;
                     lb.Command += new CommandEventHandler(this.btnPage_Command);
                     lb.CommandArgument = i.ToString();
-                    lb.Text = "<li class=\"paginate_button\">"+ i.ToString() +"</li>";
+                    lb.Text =  i.ToString();
                     Controls.Add(lb);
                     Controls.Add(new LiteralControl("</li>"));
                 }
@@ -340,20 +360,33 @@ namespace TotalBBS.Common.WebLib
             // 다음 페이지로 가기 기능 적용
             if (page == pageCount)
             {
-                tempStr = "<li class=\"paginate_button\">" + next + "</li>";
-                tempImgStr = "<img src=\"" + nextImg_off + "\" border=\"0\">";
-                Controls.Add(new LiteralControl(nextImg_off == null ? tempStr : tempImgStr));
+                //tempStr = next;
+                //tempImgStr = "<img src=\"" + nextImg_off + "\" border=\"0\">";
+                //Controls.Add(new LiteralControl(nextImg_off == null ? tempStr : tempImgStr));
+
+                Controls.Add(new LiteralControl("<li class=\"paginate_button next disabled\">"));
+
+                lb.CommandArgument = (page).ToString();
+                lb.Text = nextImg_on == null ? next : "<img src=\"" + nextImg_on + "\" border=\"0\">";
+
+                Controls.Add(lb);
             }
             else
             {
+                Controls.Add(new LiteralControl("<li class=\"paginate_button next\">"));
+
                 lb.CommandArgument = (page + 1).ToString();
-                lb.Text = nextImg_on == null ? "<li class=\"paginate_button\">" + next + "</li>" : "<img src=\"" + nextImg_on + "\" border=\"0\">";
+                lb.Text = nextImg_on == null ? next : "<img src=\"" + nextImg_on + "\" border=\"0\">";
 
                 Controls.Add(lb);
             }
 
-            if(pageCount > 10)  
+            Controls.Add(new LiteralControl("</li>"));
+
+            if (pageCount > 10)  
             {
+                Controls.Add(new LiteralControl("<li class=\"paginate_button next\">"));
+
                 lb = new LinkButton();
                 lb.CausesValidation = false;
                 lb.Command += new CommandEventHandler(this.btnPage_Command);
@@ -362,16 +395,23 @@ namespace TotalBBS.Common.WebLib
                 if (pageCount > currentBlodkEndNo)
                 {
                     lb.CommandArgument = (currentBlodkEndNo + 1).ToString();
-                    lb.Text = nextBlockImg_on == null ? "<li class=\"paginate_button\">" + prev10 + "</li>" : "<img src=\"" + nextBlockImg_on + "\" border=\"0\">";
+                    lb.Text = nextBlockImg_on == null ? next10 : "<img src=\"" + nextBlockImg_on + "\" border=\"0\">";
 
                     Controls.Add(lb);
                 }
                 else
                 {
-                    tempStr = "<li class=\"paginate_button\">" + next10 + "</li>";
-                    tempImgStr = "<img src=\"" + nextBlockImg_off + "\" border=\"0\">";
-                    Controls.Add(new LiteralControl(nextBlockImg_off == null ? tempStr : tempImgStr));
+                    //tempStr = next10;
+                    //tempImgStr = "<img src=\"" + nextBlockImg_off + "\" border=\"0\">";
+                    //Controls.Add(new LiteralControl(nextBlockImg_off == null ? tempStr : tempImgStr));
+
+                    lb.CommandArgument = (currentBlodkEndNo).ToString();
+                    lb.Text = nextBlockImg_on == null ? next10 : "<img src=\"" + nextBlockImg_on + "\" border=\"0\">";
+
+                    Controls.Add(lb);
                 }
+
+                Controls.Add(new LiteralControl("</li>"));
             }
 
             Controls.Add(new LiteralControl("</ul>"));
