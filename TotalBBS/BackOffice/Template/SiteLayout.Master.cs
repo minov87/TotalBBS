@@ -19,8 +19,8 @@ namespace TotalBBS.BackOffice.Template
             {
                 if(admin.MemberId.Equals(null) || admin.MemberId.Equals(""))
                 {
-                    CookieInfo.getCookieLogout();
-                    Response.Redirect("/BackOffice/AdminLogin.aspx", false);
+                    //CookieInfo.getCookieLogout();
+                    //Response.Redirect("/BackOffice/AdminLogin.aspx", false);
                 }
                 else
                 {

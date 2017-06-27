@@ -115,6 +115,7 @@ namespace TotalBBS.BackOffice.Board
             #endregion
         }
 
+        #region [기본 파라메타 정의]
         private void ParameterSetting()
         {
             strField = WebUtil.SCRequestFormString("FIELD", "ALL");
@@ -125,14 +126,18 @@ namespace TotalBBS.BackOffice.Board
             strBoardCategory = WebUtil.SCRequestFormString("ddlBoardCategory", "-1");
             strSort = WebUtil.SCRequestFormString("ParamSort", "IDX");
         }
+        #endregion
 
+        #region [페이지 이동]
         protected void Page_Move(int Page, PagingHelper PagingHelper)
         {
             PagingHelper1.PageSize = PageSize;
             PagingHelper1.CurrentPageIndex = Page;
             PagingHelper1.RenderPageLink();
         }
+        #endregion
 
+        #region [페이지 번호 클릭시 이동 처리]
         protected void PagingHelper1_OnPageIndexChanged(object sender, PagingEventArgs e)
         {
             try
@@ -146,7 +151,9 @@ namespace TotalBBS.BackOffice.Board
                 #endregion
             }
         }
+        #endregion
 
+        #region [게시판] 게시글 리스트 정의
         private void GetListInfo(int PagePerData, int CurrentPage, string BoardCategory, string ORDERBY, string FIELD, string KEY)
         {
             Board_NTx_Dac oWS = new Board_NTx_Dac();
@@ -157,7 +164,10 @@ namespace TotalBBS.BackOffice.Board
                 PagePerData = IntegerUtil.intValid(this.ParamPageViewRow.Value, 10);
             }
 
-            List<BoardBean> GetList = oWS.TOTALBBS_BOARD_INFO_SEL(PagePerData, CurrentPage, BoardCategory, "L", ORDERBY, FIELD, strKey);
+            List<BoardBean> GetNotiList = oWS.TOTALBBS_BOARD_NOTICE_INFO_SEL(PagePerData, "L");
+            List<BoardBean> GetList = oWS.TOTALBBS_BOARD_INFO_SEL(PagePerData, CurrentPage, BoardCategory, "L", "IDX", FIELD, strKey);
+
+            GetNotiList.AddRange(GetList);
 
             int BoardTotalCnt = oWS.TOTALBBS_BOARD_INFO_COUNT_SEL(PagePerData, CurrentPage, BoardCategory, "T", ORDERBY, FIELD, strKey);
             NoDataTotalCnt = BoardTotalCnt;
@@ -167,19 +177,21 @@ namespace TotalBBS.BackOffice.Board
             //Repeater 바인딩
             if (NoDataTotalCnt == 0)
             {
-                this.rptGetList.DataSource = GetList;
+                this.rptGetList.DataSource = GetNotiList;
                 this.rptGetList.DataBind();
             }
             else
             {
-                this.rptGetList.DataSource = GetList;
+                this.rptGetList.DataSource = GetNotiList;
                 this.rptGetList.DataBind();
             }
 
             PagingHelper1.VirtualItemCount = NoDataTotalCnt;
             ParamPage.Value = CurrentPage.ToString();
         }
+        #endregion
 
+        #region [rptGetList_ItemDataBound]
         protected void rptGetList_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Header)
@@ -254,6 +266,7 @@ namespace TotalBBS.BackOffice.Board
                 }
             }
         }
+        #endregion
 
         #region [lbtnDelete_Click] 삭제 버튼
         protected void lbtnDelete_Click(object sender, EventArgs e)

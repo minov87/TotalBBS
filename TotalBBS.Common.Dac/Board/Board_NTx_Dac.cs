@@ -50,6 +50,40 @@ namespace TotalBBS.Common.Dac.Board
         }
         #endregion
 
+        #region [게시판 관리] 공지 목록 조회 (5개만)
+        public List<BoardBean> TOTALBBS_BOARD_NOTICE_INFO_SEL(int PagePerData, string GET_TYPE)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@PagePerData", PagePerData),
+                new SqlParameter("@GET_TYPE", GET_TYPE)
+            };
+
+            List<BoardBean> GetList = new List<BoardBean>();
+            using (SqlDataReader dr = SQLHelper.ExecuteReader(Global.DataBaseConnection, "[dbo].[UP_TOTALBBS_BOARD_NOTICE_INFO_SEL_SP]", parameters))
+            {
+                while (dr.Read())
+                {
+                    BoardBean Bean = new BoardBean();
+
+                    Bean.intIdx = Convert.ToInt32(dr["intIdx"]);
+                    Bean.intBoardCategory = Convert.ToInt32(dr["intBoardCategory"]);
+                    Bean.intWriteCategory = Convert.ToInt32(dr["intWriteCategory"]);
+                    Bean.strUserId = dr["strUserId"].ToString();
+                    Bean.strWriter = dr["strWriter"].ToString();
+                    Bean.strSubject = dr["strSubject"].ToString();
+                    Bean.intViewCount = Convert.ToInt32(dr["intViewCount"]);
+                    Bean.dateRegDate = dr["dateRegDate"].ToString();
+                    Bean.intReplyCount = Convert.ToInt32(dr["intReplyCount"]);
+
+                    GetList.Add(Bean);
+                }
+
+                return GetList;
+            }
+        }
+        #endregion
+
         #region [게시판 관리] 목록 총개수 조회
         public int TOTALBBS_BOARD_INFO_COUNT_SEL(int PagePerData, int CurrentPage, string BoardCategory, string GET_TYPE, string ORDERBY, string FIELD, string KEY)
         {

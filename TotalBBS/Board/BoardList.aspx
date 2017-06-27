@@ -50,12 +50,13 @@
         <p><asp:Literal ID="ltTotalPosts" runat="server"></asp:Literal> : <asp:Label ID="ltTotalCnt" runat="server" ></asp:Label></p>
 
         <div>
+            <!-- 기본 게시글 노출 //-->
             <asp:Repeater ID="rptGetList" runat="server" OnItemDataBound="rptGetList_ItemDataBound">
                 <HeaderTemplate>
                     <table>
                         <colgroup>
                             <col width="5%" />
-                            <col width="10%" />
+                            <col width="10%" />c
                             <col width="10%" />
                             <col width="10%" />
                             <col width="%" />

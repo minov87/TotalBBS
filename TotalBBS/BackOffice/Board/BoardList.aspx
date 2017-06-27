@@ -45,6 +45,7 @@
                         <asp:DropDownList ID="FIELD" CssClass="form-control input-sm" runat="server"></asp:DropDownList>                            
                         <asp:TextBox ID="KEY" CssClass="text form-control" ValidationGroup="ListSearch" runat="server" MaxLength="20" ClientIDMode="Static"></asp:TextBox>        
                         <asp:LinkButton ID="lbtnSearch" runat="server" OnClientClick="return SearchValidation(this);" ValidationGroup="ListSearch" OnClick="lbtnSearch_Click"></asp:LinkButton>
+                        <asp:LinkButton ID="lbtnList" runat="server" OnClick="lbtnList_Click"></asp:LinkButton>
                     </span>
                 </div>
             </div>
@@ -113,9 +114,8 @@
             <div class="buttonwrapper dt-toolbar-footer">
                 <div clss="col-sm-6 col-xs-12 hidden-xs" style="width:50%;float:left;">
                     <div class="">
-                        <asp:LinkButton ID="lbtnList" runat="server" OnClick="lbtnList_Click"></asp:LinkButton>
-                        <asp:LinkButton ID="lbtnDelete" CssClass="buttons mg_l5" runat="server" OnClick="lbtnDelete_Click" OnClientClick="return fnCheckBoxCustomerRemove('ChkBoxList')"></asp:LinkButton>
                         <asp:LinkButton ID="lbtnCreate" CssClass="buttons" runat="server" OnClick="lbtnCreate_Click"></asp:LinkButton>
+                        <asp:LinkButton ID="lbtnDelete" CssClass="buttons mg_l5" runat="server" OnClick="lbtnDelete_Click" OnClientClick="return fnCheckBoxCustomerRemove('ChkBoxList')"></asp:LinkButton>
                     </div>
                 </div>
                 <!-- 페이징-->         

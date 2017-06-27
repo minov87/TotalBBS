@@ -41,6 +41,10 @@ namespace TotalBBS.BackOffice.Board
                 {
                     this.ParameterSetting();
                     {
+                        if(intIdx.Equals(null) || intIdx == -1)
+                        {
+                            intIdx = IntegerUtil.intPage(WebUtil.SCRequestFormString("ParamIdx", string.Empty),-1);
+                        }
                         if (Request.QueryString["Page"] != null)
                         {
                             //페이지값을 유지하기위해서
@@ -71,6 +75,7 @@ namespace TotalBBS.BackOffice.Board
             this.ltTotalPosts.Text = "전체 댓글 수";
         }
 
+        #region [기본 파라메타 정의]
         private void ParameterSetting()
         {
             strField = WebUtil.SCRequestFormString("FIELD", "ALL");
@@ -78,29 +83,20 @@ namespace TotalBBS.BackOffice.Board
             iPage = IntegerUtil.intPage(WebUtil.SCRequestFormString("ParamPage", string.Empty), 1);
             intPageViewRow = IntegerUtil.intPage(WebUtil.SCRequestFormString("ParamPageViewRow", string.Empty), PageSize);
             intIdx = WebUtil.RequestInt("intIdx", 0);
+            this.ParamIdx.Value = Convert.ToString(intIdx);
         }
+        #endregion
 
+        #region [페이지 이동]
         protected void Page_Move(int Page, PagingHelper PagingHelper)
         {
             PagingHelper1.PageSize = PageSize;
             PagingHelper1.CurrentPageIndex = Page;
             PagingHelper1.RenderPageLink();
         }
+        #endregion
 
-        protected void PagingHelper1_OnPageIndexChanged(object sender, PagingEventArgs e)
-        {
-            try
-            {
-                this.GetListInfo(PageSize, e.PageIndex, intIdx);
-            }
-            catch (Exception ex)
-            {
-                #region [Error Logger] 로그인을 한경우
-                //ErrorLogger_Tx_Dac.GetErrorLogger_Tx_Dac().TB_TOTABBS_ERROR_LOGGER_INFO_INS_SP(ex, admin.MemberId, admin.MemberNm);
-                #endregion
-            }
-        }
-
+        #region [게시판] 댓글 리스트 정의
         private void GetListInfo(int PagePerData, int CurrentPage, int intIdx)
         {
             Board_NTx_Dac oWS = new Board_NTx_Dac();
@@ -132,7 +128,30 @@ namespace TotalBBS.BackOffice.Board
             PagingHelper1.VirtualItemCount = NoDataTotalCnt;
             ParamPage.Value = CurrentPage.ToString();
         }
+        #endregion
 
+        #region [PagingHelper1_OnPageIndexChanged]
+        protected void PagingHelper1_OnPageIndexChanged(object sender, PagingEventArgs e)
+        {
+            try
+            {
+                if (intIdx.Equals(null) || intIdx == -1)
+                {
+                    intIdx = IntegerUtil.intPage(WebUtil.SCRequestFormString("ParamIdx", string.Empty), -1);
+                }
+
+                this.GetListInfo(PageSize, e.PageIndex, intIdx);
+            }
+            catch (Exception ex)
+            {
+                #region [Error Logger] 로그인을 한경우
+                //ErrorLogger_Tx_Dac.GetErrorLogger_Tx_Dac().TB_TOTABBS_ERROR_LOGGER_INFO_INS_SP(ex, admin.MemberId, admin.MemberNm);
+                #endregion
+            }
+        }
+        #endregion
+
+        #region [rptGetList_ItemDataBound]
         protected void rptGetList_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             // 데이타 처리
@@ -158,5 +177,6 @@ namespace TotalBBS.BackOffice.Board
                 }
             }
         }
+        #endregion
     }
 }

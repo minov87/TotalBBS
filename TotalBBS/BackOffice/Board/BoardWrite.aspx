@@ -208,9 +208,9 @@
             <div class="buttonwrapper dt-toolbar-footer">
                 <div class="col-sm-6 col-xs-12 hidden-xs">
                     <asp:LinkButton ID="lbtnCancel" runat="server" CssClass="buttons" OnClick="lbtnCancel_Click"></asp:LinkButton>
-                    <asp:LinkButton ID="lbtnValidationDelete" CssClass="buttons" runat="server" OnClick="lbtnValidation_Click"></asp:LinkButton>
                     <asp:LinkButton ID="lbtnValidationSave" CssClass="buttons" runat="server" OnClientClick="return InputValidation();" OnClick="lbtnValidation_Click"></asp:LinkButton>
                     <asp:LinkButton ID="lbtnValidationModify" CssClass="buttons" runat="server" OnClientClick="return InputValidation();" OnClick="lbtnValidation_Click"></asp:LinkButton>
+                    <asp:LinkButton ID="lbtnValidationDelete" CssClass="buttons" runat="server" OnClick="lbtnValidation_Click"></asp:LinkButton>
                 </div>
             </div>
         </div>
@@ -222,7 +222,7 @@
         <asp:HiddenField ID="hdfEmailContent" runat="server" />
 
         <div class="contentAreaBtm"></div>
-        <iframe id="ifrmReply" src="" runat="server" style="border:0px;width:100%;overflow-x: hidden;"></iframe>
+        <iframe id="ifrmReply" src="" runat="server" style="border:0px;height:500px;width:100%;overflow-x: hidden;margin-top:15px;"></iframe>
     </div>
 </asp:Content>
 

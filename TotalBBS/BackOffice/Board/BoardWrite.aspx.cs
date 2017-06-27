@@ -94,6 +94,7 @@ namespace TotalBBS.BackOffice.Board
             }
         }
 
+        #region [게시판] 페이지 기본값 설정
         private void GetPageInfoSetting(string ParamBoardCategory, string ParamField, string ParamKey, int Idx, int PageNo, string CMD)
         {
             //페이지 HTML 언어 세팅
@@ -158,8 +159,8 @@ namespace TotalBBS.BackOffice.Board
             }
             
             this.GetPageSetting(Idx, ds, CMD);
-            
         }
+        #endregion
 
         #region [기본셋팅] 등록 또는 수정
         private void GetPageSetting(int Idx, DataSet ds, string CMD)

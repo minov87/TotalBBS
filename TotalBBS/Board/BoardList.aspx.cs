@@ -162,7 +162,10 @@ namespace TotalBBS.Board
                 PagePerData = IntegerUtil.intValid(this.ParamPageViewRow.Value, 10);
             }
 
+            List<BoardBean> GetNotiList = oWS.TOTALBBS_BOARD_NOTICE_INFO_SEL(PagePerData, "L");
             List<BoardBean> GetList = oWS.TOTALBBS_BOARD_INFO_SEL(PagePerData, CurrentPage, BoardCategory, "L", "IDX", FIELD, strKey);
+            
+            GetNotiList.AddRange(GetList);
 
             int BoardTotalCnt = oWS.TOTALBBS_BOARD_INFO_COUNT_SEL(PagePerData, CurrentPage, BoardCategory, "T", "IDX", FIELD, strKey);
             NoDataTotalCnt = BoardTotalCnt;
@@ -172,12 +175,12 @@ namespace TotalBBS.Board
             //Repeater 바인딩
             if (NoDataTotalCnt == 0)
             {
-                this.rptGetList.DataSource = GetList;
+                this.rptGetList.DataSource = GetNotiList;
                 this.rptGetList.DataBind();
             }
             else
             {
-                this.rptGetList.DataSource = GetList;
+                this.rptGetList.DataSource = GetNotiList;
                 this.rptGetList.DataBind();
             }
 
